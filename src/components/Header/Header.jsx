@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import './Header.scss'
+
 export default function Header() {
-    const [term, setTerm] = useState('Doniyor')
+    const [term, setTerm] = useState('')
+    
     return (
         <div className='header'>
             <div className="left">
@@ -13,10 +15,10 @@ export default function Header() {
                 </div>
             </div>
             <div className="profile">
-                <img src="/img/photo.png" alt="Profile image" />
+                <img src="/img/photo.png" alt="Profile" />
                 <p>Paloncha</p>
-                <div className='down'> 
-                    <i class="fa-solid fa-sort-down"></i>
+                <div className='down'>
+                    <i className="fa-solid fa-sort-down"></i>
                 </div>
             </div>
         </div>

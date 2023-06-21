@@ -1,8 +1,8 @@
 .header {
     display: flex;
     justify-content: space-between;
-    border: 1px solid red;
     align-items: center;
+    position: relative;
 
     .left {
         .search {
@@ -44,10 +44,16 @@
         align-items: center;
         gap: 10px;
         border-radius: 14px;
-        .down{
+        cursor: pointer;
+
+
+        .down {
             display: flex;
             align-items: center;
             padding-left: 31px;
+
+
         }
+
     }
 }

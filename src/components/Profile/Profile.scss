@@ -1,0 +1,228 @@
+.profile-container {
+    margin-top: 54px;
+    padding-bottom: 7px;
+
+    .title {
+        font-family: 'Nunito Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 49px;
+
+        color: #0A1629;
+    }
+
+    .context {
+        display: flex;
+        gap: 33px;
+        margin-top: 7px;
+
+        .profile-box {
+            width: 20%;
+            background-color: #fff;
+            padding: 0 25px;
+
+            .header-showcase {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 140px;
+
+                .img {
+                    width: 72px;
+                    height: 72px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        padding: 4px;
+                        outline: 2px solid var(--ext-blue);
+                    }
+                }
+
+                .btn button {
+                    border: none;
+                    background-color: transparent;
+                    cursor: pointer;
+                    user-select: none;
+                }
+            }
+
+            .header-body {
+                margin-top: 20px;
+
+                .header-title {
+                    font-family: 'Nunito Sans';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 24px;
+                    /* or 150% */
+
+
+                    color: #0A1629;
+                    margin-bottom: 19px;
+                }
+
+                ul {
+                    list-style: none;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+
+                    li {
+                        padding-left: 34px;
+                    }
+                }
+            }
+        }
+
+        .box-on-right {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+            .box {
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+
+                .box-title {
+                    font-family: 'Nunito Sans';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 24px;
+                    color: #444444;
+                }
+
+                .teachers {
+                    display: flex;
+                    gap: 15px;
+                    margin-bottom: 36px;
+
+                    .box-item {
+                        width: 250px;
+                        display: grid;
+                        border-radius: 14px;
+                        background-color: #fff;
+                        padding: 8px 10px;
+                        column-gap: 17px;
+                        grid-template-areas:
+                            "img name"
+                            "img job";
+
+                        .box-name {
+                            grid-area: name;
+
+                        }
+
+                        .box-profession {
+                            grid-area: job;
+                        }
+
+                        img {
+                            grid-area: img;
+                        }
+                    }
+                }
+
+                .lessons {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+
+                    .top {
+                        display: flex;
+                        gap: 4px;
+
+                        p {
+                            border-radius: 8px;
+                            font-family: 'Nunito Sans';
+                            font-style: normal;
+                            font-weight: 700;
+                            font-size: 13px;
+                            padding: 5px 10px;
+                            background-color: #fff;
+                        }
+                    }
+
+                    .bottom {
+                        display: flex;
+                        gap: 4px;
+
+                        .simple {
+                            width: 30px;
+                            border-radius: 4px;
+                            height: 44px;
+                            background-color: #fff;
+                        }
+
+                        .came {
+                            background-color: #15C0E6;
+                        }
+                    }
+                }
+
+                .payment {
+                    width: 80%;
+
+                    thead,
+                    tbody {
+
+                        tr {
+
+                            th,
+                            td {
+                                padding-right: 20px;
+                                padding-bottom: 18px;
+
+                                p {
+                                    padding: 8px 12px;
+                                    text-align: center;
+                                    background-color: #fff;
+                                    font-family: 'Nunito Sans';
+                                    font-style: normal;
+                                    font-weight: 700;
+                                    font-size: 13px;
+                                    border-radius: 10px;
+                                    color: #000000;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .checks {
+                    display: flex;
+                    gap: 13px;
+
+                    .check {
+                        width: 98px;
+                        border-radius: 10px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 144px;
+                        background-color: #fff;
+
+                        p {
+                            cursor: pointer;
+                            user-select: none;
+                            font-family: 'Nunito Sans';
+                            font-style: normal;
+                            font-weight: 700;
+                            font-size: 13px;
+
+                            text-align: center;
+
+                            color: #000000;
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

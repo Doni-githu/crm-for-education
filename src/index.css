@@ -8,9 +8,17 @@
   src: url('../public/fonts/static/NunitoSans_7pt-Medium.ttf');
 }
 
-:root{
-  --blue: #3F8CFF;
+@font-face {
+  font-family: "Nunito Sans";
+  src: url('../public/fonts/static/NunitoSans_10pt-Regular.ttf');
 }
+
+:root {
+  --blue: #3F8CFF;
+  --ext-blue: #0066FF;
+  --ff: 'Nunito Sans'
+}
+
 
 body {
   margin: 0;
@@ -20,8 +28,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-*{
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 20px;
+  position: absolute;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--blue);
 }

@@ -1,16 +1,23 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Dashboard from '../Dashboard/Dashboard'
 import Login from '../LogIn/LogIn'
-import { Routes, Route, useLocation, useNavigation, useNavigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
+import Groups from '../Groups/Groups'
+import Payment from '../Payment/Payment'
+import Salary from '../Salary/Salary'
+import Davomat from '../Davomat/Davomat'
+import Profile from '../Profile/Profile'
 function App() {
-  const router = useNavigate()
-  // useEffect(() => {
-  //   router('/login')
-  // }, [])
+
   return (
     <Routes>
       <Route path='/login' element={<Login />} />
-      <Route path='/dashboard' element={<Dashboard />} />
+      <Route path='/groups' element={<Dashboard />} />
+      <Route path='/payments' element={<Payment />} />
+      <Route path='/salary' element={<Salary />} />
+      <Route path='/attendance/:id' element={<Davomat />} />
+      <Route path='/teachers' element={<Groups />} />
+      <Route path='/profile/:id' element={<Profile />} />
     </Routes>
   )
 }

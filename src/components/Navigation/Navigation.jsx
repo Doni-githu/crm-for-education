@@ -1,29 +1,42 @@
 import { Link } from 'react-router-dom'
 import './Navigation.scss'
+import { useLocation, } from 'react-router-dom'
 
 function Navigation() {
+    const local = useLocation()
     const routes = [
         {
-            route: '/dashboard',
-            txt: 'Dashboard',
-            icon: <i class="fa-solid fa-laptop-code"></i>
-        },
-        {
-            route: '/groups',
+            route: 'groups',
             txt: 'Groups',
-            icon: <i class="fa-solid fa-laptop-code"></i>
+            icon: <i className="fa-solid fa-user-group"></i>
         },
         {
-            route: '/profile',
+            route: 'profile',
             txt: 'Profile',
-            icon: <i class="fa-solid fa-laptop-code"></i>
+            icon: <i className="fa-solid fa-user"></i>
         },
         {
-            route: '/profile',
-            txt: 'Profile',
-            icon: <i class="fa-solid fa-laptop-code"></i>
+            route: 'attendance',
+            txt: 'Attendance',
+            icon: <i className="fa-solid fa-clipboard-user"></i>
         },
+        {
+            route: 'payments',
+            txt: 'Payments',
+            icon: <i className="fa-solid fa-credit-card"></i>
+        },
+        {
+            route: 'salary',
+            txt: 'Salary',
+            icon: <i className="fa-solid fa-money-check-dollar"></i>
+        },
+        {
+            route: 'teachers',
+            txt: "Teacher's",
+            icon: <i className="fa-solid fa-person-chalkboard"></i>
+        }
     ]
+
     return (
         <div className='navigation'>
             <div className="navigation-container">
@@ -31,48 +44,16 @@ function Navigation() {
                     <img src="/img/logo.svg" alt="Logo" />
                 </div>
                 <ul className='list'>
-                    <li>
-                        <Link to={'/dashboard'}>
-                            <div className='img'>
-                                <i class="fa-solid fa-laptop-code"></i>
-                            </div>
-                            <p>Dashboard</p>
-                        </Link>
-                    </li>
-                    <li>
-                        <div className="img">
-                            <img src="/img/dashboard.png" alt="awada" />
-                        </div>
-                        <p>Groups</p>
-                    </li>
-                    <li>
-                        <div className='img'>
-                            <img src="/img/users.png" alt="Laptop" />
-                        </div>
-                        <p>Profile</p>
-                    </li>
-                    <li>
-                        <div className='img'>
-                            <img src="/img/attre.png" alt="Laptop" />
-                        </div>
-                        <p>Attendance</p>
-                    </li>
-                    <li>
-                        <div className='img'>
-                            <img src="/img/pay.png" alt="Laptop" />
-                        </div>
-                        <p>Payment</p>
-                    </li>
-                    <li>
-                        <div className='img'>
-                            <img src="/img/laptop.png" alt="Laptop" />
-                        </div>
-                        <p>Salary</p>
-                    </li>
-                    <li>
-                        <img src="/img/teach.png" alt="Laptop" />
-                        <p>Teacher's</p>
-                    </li>
+                    {routes.map((item, idx) => (
+                        <li key={idx} className={item.route === local.pathname.slice(1).split('/')[0] ? 'active' : ''}>
+                            <Link to={`/${item.route !== 'profile' && item.route !== 'attendance' ? item.route : `${item.route}/123`}`}>
+                                <div className='img'>
+                                    {item.icon}
+                                </div>
+                                <p>{item.txt}</p>
+                            </Link>
+                        </li>
+                    ))}
                 </ul>
             </div>
             <div className="logOut">

@@ -25,7 +25,7 @@ export default function LogIn() {
                     <div className="btn">
                         <button className='btn'>
                             <p>Login</p>
-                            <i class="fa-solid fa-arrow-right"></i>
+                            <i className="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
                 </form>

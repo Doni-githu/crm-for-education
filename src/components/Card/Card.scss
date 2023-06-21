@@ -1,0 +1,84 @@
+.card {
+    width: 265px;
+    min-height: 320px;
+    padding: 5px 8px;
+    background: #FFFFFF;
+    box-shadow: 0px 6px 58px rgba(196, 203, 214, 0.103611);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .card-top {
+        background: #F4F9FD;
+        border-radius: 24px;
+        padding-top: 19px;
+        padding: 22px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 13px;
+
+        .card-bottom-profile {
+            display: flex;
+
+            flex-direction: column;
+            gap: 4px;
+            justify-self: center;
+            align-items: center;
+
+            img {
+                width: 58px;
+                border-radius: 50%;
+                height: 58px;
+                padding: 4px;
+                outline: 2px solid #3F8CFF;
+            }
+
+            .card-btn button {
+                border-radius: 4px;
+                padding: 5px 8px;
+                font-family: 'Light';
+                cursor: pointer;
+                user-select: none;
+                font-size: 12px;
+                transition: all .15s;
+                color: #7D8592;
+                border: 1px solid #7D8592;
+                background-color: transparent;
+
+                &:hover {
+                    background-color: #7D8592;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .card-bottom {
+        display: flex;
+        align-items: center;
+        height: 70%;
+        gap: 37px;
+        justify-content: center;
+        text-align: center;
+
+        .card-bottom-info {
+            p:first-child {
+                font-family: 'Nunito Sans';
+                font-weight: 700;
+                font-size: 26px;
+                color: #0A1629;
+            }
+
+            p:nth-child(2) {
+                font-family: 'Light';
+                font-weight: 400;
+                font-size: 14px;
+                color: #91929E;
+            }
+        }
+    }
+}

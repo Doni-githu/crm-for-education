@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     width: 200px;
-    height: 90vh;
     float: left;
     justify-content: space-between;
     padding: 25px 15px;
@@ -23,7 +22,6 @@
 
             li {
                 cursor: pointer;
-                padding: 11px 14px;
                 background-color: #fff;
                 transition: all 0.1s;
                 display: flex;
@@ -32,11 +30,14 @@
                 list-style: none;
 
                 a {
+                    width: 100%;
                     display: flex;
+                    padding: 11px 14px;
                     gap: 12px;
                     align-items: center;
                     text-decoration: none;
                     color: #000;
+
                     .img {
                         width: 20px;
                         height: 20px;
@@ -47,11 +48,18 @@
                         }
                     }
                 }
+            }
 
-                &:hover {
+            li:hover,
+            .active {
+                color: #fff;
+                background: #3F8CFF;
+                border-radius: 10px;
+                .img{
                     color: #fff;
-                    background: #3F8CFF;
-                    border-radius: 10px;
+                }
+                p{
+                    color: #fff;
                 }
             }
         }

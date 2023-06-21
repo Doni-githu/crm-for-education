@@ -7,11 +7,13 @@
     display: flex;
     flex-direction: column;
     gap: 54px;
+    overflow: auto;
+    height: 80vh;
     margin-top: 54px;
 
     .row {
         display: grid;
-        grid-template-columns: 25% 10% 10% 10% 15% 15% 20%;
+        grid-template-columns: 25% 10% 10% 10% 15% 15% auto;
         padding: 22px 40px;
         background-color: #fff;
         align-items: center;

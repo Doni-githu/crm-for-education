@@ -1,24 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Dashboard.scss'
 import Layout from "../../layouts/Layout"
+import { context } from '../../provider/provider'
 export default function Dashboard() {
-    const data = [
-        {
-            gName: 'Backend1',
-            start: '2d 4h',
-            finish: '1d 2h',
-            src: '/img/photo.png',
-            students: 10,
-            workDay: 'Du Se Cho',
-            time: '14.00'
-        }
-    ]
+    const { state: { groups } } = useContext(context)
+
     return (
         <Layout>
             <h1 className='dashboard-title'>Groups</h1>
             <div className="rows">
-                {[...data, ...data, ...data, ...data, ...data].map(item => (
-                    <div className='row'>
+                {groups ? groups.map((item, idx) => (
+                    <div className='row' key={idx}>
                         <div className='block first'>
                             <p>Group Name</p>
                             <p>{item.gName}</p>
@@ -33,7 +25,7 @@ export default function Dashboard() {
                         </div>
                         <div className='block four'>
                             <p>Mentor</p>
-                            <img src={item.src} />
+                            <img src={item.src} alt={item.gName} />
                         </div>
                         <div className='block five'>
                             <p>Student length</p>
@@ -48,7 +40,7 @@ export default function Dashboard() {
                             <p>{item.time}</p>
                         </div>
                     </div>
-                ))}
+                )) : null}
             </div>
         </Layout>
     )
