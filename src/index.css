@@ -7,7 +7,10 @@
   font-family: 'Medium';
   src: url('../public/fonts/static/NunitoSans_7pt-Medium.ttf');
 }
-
+@font-face {
+  font-family: 'Thin';
+  src: url(../public/fonts/static/NunitoSans_7pt-ExtraLight.ttf);
+}
 @font-face {
   font-family: "Nunito Sans";
   src: url('../public/fonts/static/NunitoSans_10pt-Regular.ttf');
@@ -16,7 +19,8 @@
 :root {
   --blue: #3F8CFF;
   --ext-blue: #0066FF;
-  --ff: 'Nunito Sans'
+  --ff: 'Nunito Sans';
+  --thin: 'Thin';
 }
 
 

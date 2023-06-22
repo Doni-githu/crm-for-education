@@ -1,13 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './Payment.scss'
 import Layout from '../../layouts/Layout'
 import Input from '../../uiComponents/Input/Input'
 function Payment() {
+    const canvasRef = useRef(null)
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [mentor, setMentor] = useState('')
     const [group, setGroup] = useState('')
-
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'red';
+        ctx.fillText(name, 20, 20)
+    }, [name])
     return (
         <Layout>
             <div className="payment-container">
@@ -24,9 +30,9 @@ function Payment() {
                     </div>
                 </div>
                 <div className='payment-right'>
-                    <div className='payment-box'>
+                    <canvas ref={canvasRef} className='payment-box'>
 
-                    </div>
+                    </canvas>
                 </div>
             </div>
         </Layout>

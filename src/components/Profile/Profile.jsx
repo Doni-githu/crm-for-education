@@ -72,6 +72,7 @@ function Profile() {
                             <div className="header-title">
                                 <p>ALIYEV JASUR</p>
                             </div>
+                            <p className='profession'>FrontEnd Developer</p>
                             <ul>
                                 <li>HTML 5</li>
                                 <li>CSS 5</li>

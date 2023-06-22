@@ -1,0 +1,87 @@
+.salary-table {
+    width: 95%;
+    background-color: #fff;
+    margin: 0 auto;
+
+    .table-header {
+        display: grid;
+        background-color: var(--ext-blue);
+        grid-template-columns: repeat(6, auto);
+
+        .col-header {
+            height: 68px;
+            color: #fff;
+            width: 136.2px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .table-body {
+        display: flex;
+        flex-direction: column;
+
+        .table-room {
+            display: grid;
+            grid-template-columns: repeat(6, auto);
+
+            .col-body {
+                display: flex;
+                text-align: center;
+                width: 136.2px;
+                justify-content: center;
+                align-items: center;
+                height: 68px;
+
+                .label {
+                    position: relative;
+
+                    .hid {
+                        display: none;
+                    }
+
+                    .hid:checked+.fake::before {
+                        opacity: 1;
+                    }
+
+                    .fake {
+                        display: inline-block;
+                        width: 20px;
+                        height: 20px;
+                        position: relative;
+                        border: 1px solid #E8E7E7;
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            display: block;
+                            width: 20px;
+                            height: 20px;
+                            opacity: 0;
+                            transition: all 0.15s;
+                            background-image: url('../../../public/img/checkbox.png');
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .id {
+        .col-body-left {
+            width: 88px;
+            height: 52px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}   

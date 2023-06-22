@@ -78,9 +78,50 @@ const initialState = {
             groups: 2,
             students: 12,
             selected: true,
-            salary: 500
+            salary: 500,
         },
+
     ],
+    mentor: {
+        name: 'Doniyor',
+        surname: 'Doniyorov',
+        pays: [
+            {
+                month: 'April',
+                salary: '1.200.000',
+            },
+            {
+                month: 'May',
+                salary: '1.500.000',
+            },
+            {
+                month: 'June',
+                salary: '1.500.000',
+            },
+            {
+                month: 'July',
+                salary: '1.500.000',
+            },
+        ],
+        students: [
+            {
+                name: 'Husan', 
+                surname: 'Atamov',
+                phone: '+998905234225',
+                come: 10,
+                notCome: 2,
+                withReason: 5,
+            },
+            {
+                name: 'Husniddin', 
+                surname: 'Eganberdiev',
+                phone: '+998915234225',
+                come: 10,
+                notCome: 2,
+                withReason: 5,
+            },
+        ]
+    },
     users: [
         {
             id: 0,
@@ -96,7 +137,6 @@ const initialState = {
 
 export function reducer(state = initialState, { type, payload }) {
     switch (type) {
-
         case 'term_update':
             return { ...state, term: payload }
         case 'selected':
