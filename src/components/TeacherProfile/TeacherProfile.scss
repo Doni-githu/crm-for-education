@@ -113,6 +113,7 @@
 
                 table {
                     border: var(--blue);
+                    width: 90%;
                     border-collapse: collapse;
 
                     thead {
@@ -129,6 +130,7 @@
                                     color: var(--white, #FFF);
                                     text-align: center;
                                     font-size: 14px;
+                                    text-align: center;
                                     font-family: Roboto;
                                     background: var(--blue, #06F);
                                     font-weight: 500;
@@ -148,6 +150,7 @@
                             .check {
                                 display: flex;
                                 align-items: center;
+                                justify-content: center;
                                 padding-left: 16px;
 
                                 label {
@@ -195,9 +198,11 @@
 
                             p {
                                 padding: 16px;
+                                text-align: center;
                             }
                         }
                     }
+                
                 }
 
                 .students-cards {

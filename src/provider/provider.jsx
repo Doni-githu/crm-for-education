@@ -8,10 +8,120 @@ const initialState = {
     groups: [
         {
             gName: 'Backend1',
+            id: 0,
             start: '2d 4h',
             finish: '1d 2h',
             src: '/img/photo.png',
-            students: 10,
+            students: [
+                {
+                    name: 'Doniyor Doniyorov',
+                    id: 0,
+                    attendance: [
+                        {
+                            id: 0,
+                            rol: 'c'
+                        },
+                        {
+                            id: 1,
+                            rol: 'g'
+                        },
+                        {
+                            id: 2,
+                            rol: 'w'
+                        },
+                        {
+                            id: 3,
+                            rol: 'c'
+                        },
+                        {
+                            id: 4,
+                            rol: 'w'
+                        },
+                        {
+                            id: 5,
+                            rol: 'g'
+                        },
+                        {
+                            id: 6,
+                            rol: 'c'
+                        },
+                        {
+                            id: 7,
+                            rol: 'w'
+                        },
+                        {
+                            id: 8,
+                            rol: 'g'
+                        },
+                        {
+                            id: 9,
+                            rol: ''
+                        },
+                        {
+                            id: 10,
+                            rol: ''
+                        },
+                        {
+                            id: 11,
+                            rol: ''
+                        },
+                    ]
+                },
+                {
+                    name: 'Xusan Atamov',
+                    id: 1,
+                    attendance: [
+                        {
+                            id: 0,
+                            rol: 'c'
+                        },
+                        {
+                            id: 1,
+                            rol: 'g'
+                        },
+                        {
+                            id: 2,
+                            rol: 'w'
+                        },
+                        {
+                            id: 3,
+                            rol: 'c'
+                        },
+                        {
+                            id: 4,
+                            rol: 'w'
+                        },
+                        {
+                            id: 5,
+                            rol: 'g'
+                        },
+                        {
+                            id: 6,
+                            rol: 'c'
+                        },
+                        {
+                            id: 7,
+                            rol: 'g'
+                        },
+                        {
+                            id: 8,
+                            rol: 'c'
+                        },
+                        {
+                            id: 9,
+                            rol: ''
+                        },
+                        {
+                            id: 10,
+                            rol: ''
+                        },
+                        {
+                            id: 11,
+                            rol: ''
+                        },
+                    ]
+                }
+            ],
             workDay: 'Du Se Cho',
             time: '14.00'
         },
@@ -20,7 +130,183 @@ const initialState = {
             start: '2d 4h',
             finish: '1d 2h',
             src: '/img/photo.png',
-            students: 10,
+            students: [
+                {
+                    name: 'Husniddin Eganberdiev',
+                    id: 0,
+                    attendance: [
+                        {
+                            id: 0,
+                            rol: 'c'
+                        },
+                        {
+                            id: 1,
+                            rol: 'g'
+                        },
+                        {
+                            id: 2,
+                            rol: 'w'
+                        },
+                        {
+                            id: 3,
+                            rol: 'c'
+                        },
+                        {
+                            id: 4,
+                            rol: 'w'
+                        },
+                        {
+                            id: 5,
+                            rol: 'g'
+                        },
+                        {
+                            id: 6,
+                            rol: 'c'
+                        },
+                        {
+                            id: 7,
+                            rol: 'g'
+                        },
+                        {
+                            id: 8,
+                            rol: 'c'
+                        },
+                        {
+                            id: 9,
+                            rol: ''
+                        },
+                        {
+                            id: 10,
+                            rol: ''
+                        },
+                        {
+                            id: 11,
+                            rol: ''
+                        },
+                    ]
+                },
+            ],
+            id: 1,
+            workDay: 'Du Se Cho',
+            time: '14.00',
+
+        },
+        {
+            gName: 'Backend1',
+            start: '2d 4h',
+            finish: '1d 2h',
+            src: '/img/photo.png',
+            students: [
+                {
+                    name: 'Doniyor Doniyorov',
+                    id: 0,
+                    attendance: [
+                        {
+                            id: 0,
+                            rol: 'c'
+                        },
+                        {
+                            id: 1,
+                            rol: 'g'
+                        },
+                        {
+                            id: 2,
+                            rol: 'w'
+                        },
+                        {
+                            id: 3,
+                            rol: 'c'
+                        },
+                        {
+                            id: 4,
+                            rol: 'w'
+                        },
+                        {
+                            id: 5,
+                            rol: 'g'
+                        },
+                        {
+                            id: 6,
+                            rol: 'c'
+                        },
+                        {
+                            id: 7,
+                            rol: 'g'
+                        },
+                        {
+                            id: 8,
+                            rol: 'c'
+                        },
+                        {
+                            id: 9,
+                            rol: ''
+                        },
+                        {
+                            id: 10,
+                            rol: ''
+                        },
+                        {
+                            id: 11,
+                            rol: ''
+                        },
+                    ]
+                },
+                {
+                    name: 'Xusan Atamov',
+                    id: 1,
+                    attendance: [
+                        {
+                            id: 0,
+                            rol: 'c'
+                        },
+                        {
+                            id: 1,
+                            rol: 'g'
+                        },
+                        {
+                            id: 2,
+                            rol: 'w'
+                        },
+                        {
+                            id: 3,
+                            rol: 'c'
+                        },
+                        {
+                            id: 4,
+                            rol: 'w'
+                        },
+                        {
+                            id: 5,
+                            rol: 'g'
+                        },
+                        {
+                            id: 6,
+                            rol: 'c'
+                        },
+                        {
+                            id: 7,
+                            rol: 'g'
+                        },
+                        {
+                            id: 8,
+                            rol: 'c'
+                        },
+                        {
+                            id: 9,
+                            rol: ''
+                        },
+                        {
+                            id: 10,
+                            rol: ''
+                        },
+                        {
+                            id: 11,
+                            rol: ''
+                        },
+                    ]
+                }
+            ],
+            id: 2,
             workDay: 'Du Se Cho',
             time: '14.00'
         },
@@ -28,26 +314,237 @@ const initialState = {
             gName: 'Backend1',
             start: '2d 4h',
             finish: '1d 2h',
+            id: 3,
             src: '/img/photo.png',
-            students: 10,
+            students: [
+                {
+                    name: 'Doniyor Doniyorov',
+                    id: 0,
+                    attendance: [
+                        {
+                            id: 0,
+                            rol: 'c'
+                        },
+                        {
+                            id: 1,
+                            rol: 'g'
+                        },
+                        {
+                            id: 2,
+                            rol: 'w'
+                        },
+                        {
+                            id: 3,
+                            rol: 'c'
+                        },
+                        {
+                            id: 4,
+                            rol: 'w'
+                        },
+                        {
+                            id: 5,
+                            rol: 'g'
+                        },
+                        {
+                            id: 6,
+                            rol: 'c'
+                        },
+                        {
+                            id: 7,
+                            rol: 'g'
+                        },
+                        {
+                            id: 8,
+                            rol: 'c'
+                        },
+                        {
+                            id: 9,
+                            rol: ''
+                        },
+                        {
+                            id: 10,
+                            rol: ''
+                        },
+                        {
+                            id: 11,
+                            rol: ''
+                        },
+                    ]
+                },
+                {
+                    name: 'Xusan Atamov',
+                    id: 1,
+                    attendance: [
+                        {
+                            id: 0,
+                            rol: 'c'
+                        },
+                        {
+                            id: 1,
+                            rol: 'g'
+                        },
+                        {
+                            id: 2,
+                            rol: 'w'
+                        },
+                        {
+                            id: 3,
+                            rol: 'c'
+                        },
+                        {
+                            id: 4,
+                            rol: 'w'
+                        },
+                        {
+                            id: 5,
+                            rol: 'g'
+                        },
+                        {
+                            id: 6,
+                            rol: 'c'
+                        },
+                        {
+                            id: 7,
+                            rol: 'g'
+                        },
+                        {
+                            id: 8,
+                            rol: 'c'
+                        },
+                        {
+                            id: 9,
+                            rol: ''
+                        },
+                        {
+                            id: 10,
+                            rol: ''
+                        },
+                        {
+                            id: 11,
+                            rol: ''
+                        },
+                    ]
+                }
+            ],
             workDay: 'Du Se Cho',
             time: '14.00'
         },
         {
+            id: 4,
             gName: 'Backend1',
             start: '2d 4h',
             finish: '1d 2h',
             src: '/img/photo.png',
-            students: 10,
-            workDay: 'Du Se Cho',
-            time: '14.00'
-        },
-        {
-            gName: 'Backend1',
-            start: '2d 4h',
-            finish: '1d 2h',
-            src: '/img/photo.png',
-            students: 10,
+            students: [
+                {
+                    name: 'Doniyor Doniyorov',
+                    id: 0,
+                    attendance: [
+                        {
+                            id: 0,
+                            rol: 'c'
+                        },
+                        {
+                            id: 1,
+                            rol: 'g'
+                        },
+                        {
+                            id: 2,
+                            rol: 'w'
+                        },
+                        {
+                            id: 3,
+                            rol: 'c'
+                        },
+                        {
+                            id: 4,
+                            rol: 'w'
+                        },
+                        {
+                            id: 5,
+                            rol: 'g'
+                        },
+                        {
+                            id: 6,
+                            rol: 'c'
+                        },
+                        {
+                            id: 7,
+                            rol: 'g'
+                        },
+                        {
+                            id: 8,
+                            rol: 'c'
+                        },
+                        {
+                            id: 9,
+                            rol: ''
+                        },
+                        {
+                            id: 10,
+                            rol: ''
+                        },
+                        {
+                            id: 11,
+                            rol: ''
+                        },
+                    ]
+                },
+                {
+                    name: 'Xusan Atamov',
+                    id: 1,
+                    attendance: [
+                        {
+                            id: 0,
+                            rol: 'c'
+                        },
+                        {
+                            id: 1,
+                            rol: 'g'
+                        },
+                        {
+                            id: 2,
+                            rol: 'w'
+                        },
+                        {
+                            id: 3,
+                            rol: 'c'
+                        },
+                        {
+                            id: 4,
+                            rol: 'w'
+                        },
+                        {
+                            id: 5,
+                            rol: 'g'
+                        },
+                        {
+                            id: 6,
+                            rol: 'c'
+                        },
+                        {
+                            id: 7,
+                            rol: 'g'
+                        },
+                        {
+                            id: 8,
+                            rol: 'c'
+                        },
+                        {
+                            id: 9,
+                            rol: ''
+                        },
+                        {
+                            id: 10,
+                            rol: ''
+                        },
+                        {
+                            id: 11,
+                            rol: ''
+                        },
+                    ]
+                }
+            ],
             workDay: 'Du Se Cho',
             time: '14.00'
         },
@@ -80,7 +577,6 @@ const initialState = {
             selected: true,
             salary: 500,
         },
-
     ],
     mentor: {
         name: 'Doniyor',
@@ -105,7 +601,7 @@ const initialState = {
         ],
         students: [
             {
-                name: 'Husan', 
+                name: 'Husan',
                 surname: 'Atamov',
                 phone: '+998905234225',
                 come: 10,
@@ -113,7 +609,7 @@ const initialState = {
                 withReason: 5,
             },
             {
-                name: 'Husniddin', 
+                name: 'Husniddin',
                 surname: 'Eganberdiev',
                 phone: '+998915234225',
                 come: 10,
@@ -122,17 +618,11 @@ const initialState = {
             },
         ]
     },
-    users: [
-        {
-            id: 0,
-            name: 'Doniyor Doniyorov'
-        },
-        {
-            id: 1,
-            name: 'Husan Atamov'
-        }
-    ],
-    selectedTeachs: []
+    profile: {},
+    users: null,
+    selectedTeachs: [],
+    isLoading: false,
+    user: null
 }
 
 export function reducer(state = initialState, { type, payload }) {
@@ -149,6 +639,18 @@ export function reducer(state = initialState, { type, payload }) {
                 newData.push(element)
             }
             return { ...state, salary: newData }
+        case "user/login":
+            return { ...state, user: payload }
+        case "attendance":
+            const foundStudents = state.groups.find(c => c.id === payload)
+            return { ...state, users: foundStudents }
+        case "updateAttendance":
+            const [id1, id2, id3, rol] = payload;
+            const lookingForGroup = state.groups.find(c => c.id === id1)
+            const lookingForStudent = lookingForGroup.students.find(c => c.id === id2)
+            const lookingForAttendance = lookingForStudent.attendance.find(c => c.id === id3);
+            lookingForAttendance.rol = rol;
+            return {...state}
         default:
             return state
     }

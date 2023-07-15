@@ -34,7 +34,7 @@ export default function Table() {
             </div>
             <div className="table-body">
                 {data.map((item, idx) => (
-                    <div key={idx} className='table-room'>
+                    <div key={item.id} className='table-room'>
                         <div className='col-body id'>
                             <label className='label'>
                                 <input defaultChecked={item.selected} onChange={() => onSelect(idx)} type="checkbox" className='hid' />

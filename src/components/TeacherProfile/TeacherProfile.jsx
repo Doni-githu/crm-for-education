@@ -1,14 +1,19 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Layout from '../../layouts/Layout'
 import './TeacherProfile.scss'
 import { context } from '../../provider/provider'
+import { useNavigate } from 'react-router-dom'
 
 function TeacherProfile() {
-    const [_, setSlug] = useState(localStorage.getItem('any') || 'data')
+    const [slug, setSlug] = useState('')
     function findAndUpdate(slug) {
         localStorage.setItem('any', slug)
         setSlug(slug)
     }
+    const navigate = useNavigate()
+    useEffect(() => {
+        setSlug(localStorage.getItem('any'))
+    }, [])
     const [btns] = useState([
         {
             txt: 'My data',
@@ -37,7 +42,7 @@ function TeacherProfile() {
                                     padding: '4px',
                                     border: '1px solid var(--ext-blue)',
                                     borderRadius: "50%"
-                                }} alt='' />
+                                }} alt=''/>
                             </div>
                             <div className='btn'>
                                 <button>
@@ -66,9 +71,9 @@ function TeacherProfile() {
                     <div className="for-right">
                         <div className="two-buttons">
                             <div className="button-container">
-                                {btns.map((item, idx) => (
-                                    <div key={idx} className="btn">
-                                        <button className={localStorage.getItem('any') === item.slug ? 'active' : ''} onClick={() => item.click(item.slug)}>{item.txt}</button>
+                                {btns.map((item) => (
+                                    <div key={item.id} className="btn">
+                                        <button className={slug === item.slug ? 'active' : ''} onClick={() => item.click(item.slug)}>{item.txt}</button>
                                     </div>
                                 ))}
                             </div>
@@ -97,7 +102,7 @@ function TeacherProfile() {
                                     </thead>
                                     <tbody>
                                         {mentor.pays.map((item, idx) => (
-                                            <tr key={idx}>
+                                            <tr key={item.id * 2}>
                                                 <td>
                                                     <div className="check">
                                                         <label>
@@ -126,7 +131,7 @@ function TeacherProfile() {
                             </> : <>
                                 <div className="students-cards">
                                     {mentor.students.map((item, idx) => (
-                                        <div className="student-card">
+                                        <div className="student-card" onClick={() => navigate(`/profile/${item.id}`)}>
                                             <div className="names">
                                                 <div className="img">
                                                     <img src="https://picsum.photos/200/300" width={'72px'} height={'72px'} alt={item.name} />

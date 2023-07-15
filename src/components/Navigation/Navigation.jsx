@@ -16,23 +16,18 @@ function Navigation() {
             icon: <i className="fa-solid fa-user"></i>
         },
         {
-            route: 'attendance',
-            txt: 'Attendance',
-            icon: <i className="fa-solid fa-clipboard-user"></i>
-        },
-        {
             route: 'payments',
             txt: 'Payments',
             icon: <i className="fa-solid fa-credit-card"></i>
         },
         {
             route: 'salary',
-            txt: 'Salary',
+            txt: "Teacher's",
             icon: <i className="fa-solid fa-money-check-dollar"></i>
         },
         {
             route: 'teachers',
-            txt: "Teacher's",
+            txt: "Groups",
             icon: <i className="fa-solid fa-person-chalkboard"></i>
         }
     ]

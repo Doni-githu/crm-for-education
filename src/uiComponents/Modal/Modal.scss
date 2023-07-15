@@ -1,0 +1,19 @@
+.modal{
+    width: 100%;
+    border-radius: 12px;
+    padding: 18px 16px;
+    border-width: 2px;
+    display: flex;
+    justify-content: space-between;
+    border-style: solid;
+    .x{
+        cursor: pointer;
+        user-select: none;
+    }
+}
+
+.modal.error{
+    border-color: #660708;
+    background-color: #d90429;
+    color: #fff;
+}

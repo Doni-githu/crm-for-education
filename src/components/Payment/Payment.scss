@@ -1,7 +1,9 @@
 .payment-container {
     display: flex;
-    justify-content: space-between;
-    margin-top: 59px;
+    justify-content: center;
+    height: 75%;
+    align-items: center;
+    margin-top: 25px;
 
     .payment-left {
         width: 50%;
@@ -36,18 +38,5 @@
         }
     }
 
-    .payment-right {
-        width: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
 
-        .payment-box {
-            outline: 5px solid rgba(153, 153, 153, 0.6);
-            border-radius: 10px;
-            background-color: rgb(210, 210, 210);
-            width: 282px;
-            height: 406px;
-        }
-    }
 }

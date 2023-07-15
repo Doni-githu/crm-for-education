@@ -1,11 +1,13 @@
 import React from 'react'
 import './Profile.scss'
 import Layout from '../../layouts/Layout'
+import { useNavigate } from 'react-router-dom'
 
 function Profile() {
     const now = new Date().toJSON()
     let result = changeAttendance(parseInt(now.split('-')[1]))
     let array = []
+    const navigate = useNavigate()
     for (let i = 1; i < result + 1; i++) {
         array.push(i)
     }
@@ -17,7 +19,7 @@ function Profile() {
             4: 30,
             5: 31,
             6: 12,
-            7: 31,
+            7: 12,
             8: 31,
             9: 30,
             10: 31,
@@ -84,12 +86,12 @@ function Profile() {
                         <div className="box">
                             <p className="box-title">Teachers</p>
                             <div className="teachers">
-                                <div className="box-item">
+                                <div className="box-item" onClick={() => navigate(`/teacher/1`)}>
                                     <img src="/img/profile.png" alt='' />
                                     <p className='box-name'>Aliyev Vali</p>
                                     <p className="box-profession">Frontend developer</p>
                                 </div>
-                                <div className="box-item">
+                                <div className="box-item" onClick={() => navigate(`/teacher/1`)}>
                                     <img src="/img/profile.png" alt='' />
                                     <p className='box-name'>Aliyev Vali</p>
                                     <p className="box-profession">Frontend developer</p>

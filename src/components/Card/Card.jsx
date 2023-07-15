@@ -1,6 +1,12 @@
 import React from 'react'
 import './Card.scss'
+import { useNavigate } from 'react-router-dom'
 function Card({ item }) {
+    const navigate = useNavigate()
+    
+    const toProfile = id => {
+        navigate(`/teacher/${id}`)
+    }
     return (
         <div className='card'>
             <div className="card-top">
@@ -11,7 +17,7 @@ function Card({ item }) {
                 <div className='card-bottom-profile'>
                     <p>{item.professional}</p>
                     <div className='card-btn'>
-                        <button>Profile</button>
+                        <button onClick={() => toProfile(item.id)}>Profile</button>
                     </div>
                 </div>
             </div>
