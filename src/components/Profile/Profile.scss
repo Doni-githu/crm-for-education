@@ -132,11 +132,15 @@
 
                         img {
                             grid-area: img;
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
                         }
                     }
                 }
 
                 .lessons {
+                    width: 100%;
                     display: flex;
                     flex-direction: column;
                     gap: 12px;
@@ -167,8 +171,17 @@
                             background-color: #fff;
                         }
 
-                        .came {
+
+                        .c {
                             background-color: #15C0E6;
+                        }
+
+                        .g {
+                            background-color: red;
+                        }
+
+                        .w {
+                            background-color: #6D5DD3;
                         }
                     }
                 }
@@ -233,4 +246,11 @@
             }
         }
     }
+}
+
+.loader {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
 }

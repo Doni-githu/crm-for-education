@@ -166,7 +166,7 @@
                     position: relative;
 
                     &:last-child {
-                     
+
                         .table-button .hover-paginate {
                             left: -50px;
                         }
@@ -182,7 +182,7 @@
                         height: 44px;
                         border-radius: 7px;
 
-                        
+
 
                         .hover-paginate {
                             position: absolute;
@@ -216,19 +216,20 @@
 
                     .table-button:hover .hover-paginate {
                         transform: scale(1);
+                        transform-origin: left;
                     }
 
 
                     .c {
-                        background-color: rgba(0, 128, 0, 0.684);
+                        background-color: #15C0E6;
                     }
 
                     .g {
-                        background-color: #F65160;
+                        background-color: red;
                     }
 
                     .w {
-                        background-color: #15C0E6;
+                        background-color: #6D5DD3;
                     }
                 }
             }

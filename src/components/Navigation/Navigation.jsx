@@ -1,9 +1,13 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Navigation.scss'
 import { useLocation, } from 'react-router-dom'
+import { useContext } from 'react'
+import { context } from '../../provider/provider'
 
 function Navigation() {
     const local = useLocation()
+    const navigate = useNavigate()
+    const { dispatch, state } = useContext(context)
     const routes = [
         {
             route: 'groups',
@@ -31,7 +35,10 @@ function Navigation() {
             icon: <i className="fa-solid fa-person-chalkboard"></i>
         }
     ]
-
+    const signOut = () => {
+        dispatch({ type: 'logout' })
+        navigate('/')
+    }
     return (
         <div className='navigation'>
             <div className="navigation-container">
@@ -41,7 +48,7 @@ function Navigation() {
                 <ul className='list'>
                     {routes.map((item, idx) => (
                         <li key={idx} className={item.route === local.pathname.slice(1).split('/')[0] ? 'active' : ''}>
-                            <Link to={`/${item.route !== 'profile' && item.route !== 'attendance' ? item.route : `${item.route}/123`}`}>
+                            <Link to={`/${item.route !== 'profile' ? item.route : `${item.route}/${state.user ? state.user.id : ''}`}`}>
                                 <div className='img'>
                                     {item.icon}
                                 </div>
@@ -51,7 +58,7 @@ function Navigation() {
                     ))}
                 </ul>
             </div>
-            <div className="logOut">
+            <div className="logOut" onClick={signOut}>
                 <img src="/img/logout.png" alt="Log out" />
                 <p>Log out</p>
             </div>

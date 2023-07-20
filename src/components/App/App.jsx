@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Dashboard from '../Dashboard/Dashboard'
 import Login from '../LogIn/LogIn'
 import { Routes, Route } from 'react-router-dom'
@@ -8,7 +8,24 @@ import Salary from '../Salary/Salary'
 import Davomat from '../Davomat/Davomat'
 import Profile from '../Profile/Profile'
 import TeacherProfile from '../TeacherProfile/TeacherProfile'
+import Auth from '../../services/user'
+import { context } from '../../provider/provider'
 function App() {
+  const { state, dispatch } = useContext(context)
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      dispatch({ type: 'startlogin' })
+      Auth.getUser(token)
+        .then((res) => {
+          const payload = {
+            user: res.data.user,
+            role: res.data.role
+          }
+          dispatch({ type: 'user/login', payload })
+        })
+    }
+  }, [])
 
   return (
     <Routes>

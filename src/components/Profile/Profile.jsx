@@ -1,9 +1,29 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Profile.scss'
 import Layout from '../../layouts/Layout'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import Auth from '../../services/user'
+import { context } from '../../provider/provider'
+import Loader from '../../uiComponents/Loader/Loader'
 
 function Profile() {
+    const { state, dispatch } = useContext(context)
+    const [isLoading, setLoading] = useState(false)
+    const params = useParams()
+    useEffect(() => {
+        setLoading(true)
+        if (!state.studentProfile) {
+            const id = parseInt(params.id)
+            Auth.getUseById(id, 'ST')
+                .then((res) => {
+                    dispatch({ type: 'studentProfile', payload: res.data })
+                    setLoading(false)
+                }).catch((err) => {
+                    console.log(err)
+                    setLoading(false)
+                })
+        }
+    }, [])
     const now = new Date().toJSON()
     let result = changeAttendance(parseInt(now.split('-')[1]))
     let array = []
@@ -54,102 +74,106 @@ function Profile() {
             txt: 'May'
         }
     ]
+
     return (
-        <Layout>
-            <div className='profile-container'>
-                <p className='title'>Student Name</p>
-                <div className="context">
-                    <div className="profile-box">
-                        <div className="header-showcase">
-                            <div className="img">
-                                <img src="/img/profile.png" alt='' />
-                            </div>
-                            <div className='btn'>
-                                <button>
-                                    <img src="/img/edit.png" alt="" />
-                                </button>
-                            </div>
-                        </div>
-                        <div className="header-body">
-                            <div className="header-title">
-                                <p>ALIYEV JASUR</p>
-                            </div>
-                            <p className='profession'>FrontEnd Developer</p>
-                            <ul>
-                                <li>HTML 5</li>
-                                <li>CSS 5</li>
-                                <li>JAVASCRIPT</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="box-on-right">
-                        <div className="box">
-                            <p className="box-title">Teachers</p>
-                            <div className="teachers">
-                                <div className="box-item" onClick={() => navigate(`/teacher/1`)}>
-                                    <img src="/img/profile.png" alt='' />
-                                    <p className='box-name'>Aliyev Vali</p>
-                                    <p className="box-profession">Frontend developer</p>
+        <>
+            {state.studentProfile ? <Layout>
+                <div className='profile-container'>
+                    <p className='title'>Student {state.studentProfile.name} {state.studentProfile.surname}</p>
+                    <div className="context">
+                        <div className="profile-box">
+                            <div className="header-showcase">
+                                <div className="img">
+                                    <img src={`http://127.0.0.1:8000/${state.studentProfile.src}`} alt={state.studentProfile.username} />
                                 </div>
-                                <div className="box-item" onClick={() => navigate(`/teacher/1`)}>
-                                    <img src="/img/profile.png" alt='' />
-                                    <p className='box-name'>Aliyev Vali</p>
-                                    <p className="box-profession">Frontend developer</p>
+                                <div className='btn'>
+                                    <button>
+                                        <img src="/img/edit.png" alt="" />
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-                        <div className="box">
-                            <p className='box-title'>Lessons day</p>
-                            <div className="lessons">
-                                <div className="top">
-                                    {array.map((item, idx) => (
-                                        <p key={idx}>{item}</p>
-                                    ))}
+                            <div className="header-body">
+                                <div className="header-title">
+                                    <p>{state.studentProfile.name} {state.studentProfile.surname}</p>
                                 </div>
-                                <div className="bottom">
-                                    {array.map((item, idx) => (
-                                        <p className={`simple ${item % 2 === 0 ? '' : 'came'}`}></p>
-                                    ))}
-                                </div>
+                                {state.studentProfile.profession ? state.studentProfile.profession.map((item) => (
+                                    <p key={item.id} className='profession'>{item.name}</p>
+                                )) : ''}
+                                <ul>
+                                    {state.studentProfile.technologies ? state.studentProfile.technologies.map((item) => (
+                                        <li key={item.id}>{item.name}</li>
+                                    )) : ''}
+                                </ul>
                             </div>
                         </div>
-                        <div className="box">
-                            <p className='box-title'>Payments</p>
-                            <table className='payment'>
-                                <thead>
-                                    <tr>
-                                        {month.map((item) => (
-                                            <th key={item}>
-                                                <p>{item.txt}</p>
-                                            </th>
+                        <div className="box-on-right">
+                            <div className="box">
+                                <p className="box-title">Teachers</p>
+                                <div className="teachers">
+                                    {state.studentProfile.teachers ? state.studentProfile.teachers.map((item) => (
+                                        <div className="box-item" key={item.id} onClick={() => navigate(`/teacher/${item.id}`)}>
+                                            <img src={`http://127.0.0.1:8000${item.src}`} />
+                                            <p className='box-name'>{item.name} {item.surname}</p>
+                                            <p className="box-profession">{item.profession[0].name}</p>
+                                        </div>
+                                    )) : ''}
+                                </div>
+                            </div>
+                            <div className="box">
+                                <p className='box-title'>Lessons day</p>
+                                <div className="lessons">
+                                    <div className="top">
+                                        {state.studentProfile.davomat.map((_, idx) => (
+                                            <p key={idx}>{idx + 1}</p>
                                         ))}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        {month.map((item, idx) => (
-                                            <td>
-                                                <p>{item.priced ? 'Priced' : 'No Priced'}</p>
-                                            </td>
-                                        ))}
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="box">
-                            <p className="box-title">Checks</p>
-                            <div className="checks">
-                                {month.map((item) => (
-                                    <div className={'check'}>
-                                        <p>{item.priced ? 'Priced' : 'No Priced'}</p>
                                     </div>
-                                ))}
+                                    <div className="bottom">
+                                        {state.studentProfile.davomat.map((item, idx) => (
+                                            <p key={idx} className={`simple ${item.keldi}`}></p>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="box">
+                                <p className='box-title'>Payments</p>
+                                <table className='payment'>
+                                    <thead>
+                                        <tr>
+                                            {month.map((item, idx) => (
+                                                <th key={idx}>
+                                                    <p>{item.txt}</p>
+                                                </th>
+                                            ))}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            {month.map((item, idx) => (
+                                                <td key={idx}>
+                                                    <p>{item.priced ? 'Priced' : 'No Priced'}</p>
+                                                </td>
+                                            ))}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="box">
+                                <p className="box-title">Checks</p>
+                                <div className="checks">
+                                    {month.map((item, idx) => (
+                                        <div key={idx} className={'check'}>
+                                            <p>{item.priced ? 'Priced' : 'No Priced'}</p>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </Layout>
+            </Layout> : <div className='loader'>
+                <Loader />
+            </div>}
+        </>
     )
 }
 

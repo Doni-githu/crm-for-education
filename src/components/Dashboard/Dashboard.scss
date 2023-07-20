@@ -42,5 +42,19 @@
                 margin: 0 13px;
             }
         }
+
+        .four {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 80px;
+            justify-content: center;
+
+            img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+            }
+        }
     }
 }

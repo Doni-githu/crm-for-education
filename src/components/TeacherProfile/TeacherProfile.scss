@@ -111,7 +111,57 @@
             .show {
                 margin-top: 40px;
 
-                table {
+                .any {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 34px;
+                    width: 40vw;
+
+                    .groups {
+                        display: flex;
+                        width: 40vw;
+                        border: 1px solid red;
+                        gap: 58px;
+
+                        .group {
+                            padding: 28px;
+                            border-radius: 24px;
+                            background: #FFF;
+                            box-shadow: 0px 6px 58px 0px rgba(196, 203, 214, 0.10);
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: left;
+                            width: 265px;
+
+                            img {
+                                width: 44px;
+                                height: 44px;
+                                margin-bottom: 32px;
+                            }
+
+                            .groupName {
+                                margin-bottom: 8px;
+                                color: #0A1629;
+                                font-family: Nunito Sans;
+                                font-size: 18px;
+                                font-style: normal;
+                                font-weight: 700;
+                                line-height: 26px;
+                            }
+
+                            .studentsNumbers {
+                                color: #91929E;
+                                font-family: Nunito Sans;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: normal;
+                            }
+                        }
+                    }
+                }
+
+                .any table {
                     border: var(--blue);
                     width: 90%;
                     border-collapse: collapse;
@@ -202,7 +252,7 @@
                             }
                         }
                     }
-                
+
                 }
 
                 .students-cards {
