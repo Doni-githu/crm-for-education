@@ -11,8 +11,20 @@ export default function LogIn() {
     const [password, setPassword] = useState('')
     const [role, setRole] = useState("ST")
     const [error, setError] = useState('')
-    const { dispatch } = useContext(context)
+    const { dispatch, state } = useContext(context)
     const navigate = useNavigate()
+    useEffect(() => {
+        if (localStorage.getItem('role') === 'DR' || localStorage.getItem('role') === 'DIRECTOR' || localStorage.getItem('role') === 'AD') {
+            navigate('/groups')
+        }
+        if (localStorage.getItem('role') === 'ST' || localStorage.getItem('role') === 'STUDENT') {
+            navigate(`/profile/${state.user.id}`)
+        }
+
+        if (localStorage.getItem('role') === 'TR' || localStorage.getItem('role') === 'TEACHER') {
+            navigate(`/teacher/${state.user.id}`)
+        }
+    }, [])
     const onSubmitForm = () => {
         if (!username || !password) {
             setError('All fields are required!')
@@ -34,6 +46,7 @@ export default function LogIn() {
                 }
                 if (payload.role === 'DR' || payload.role === 'DIRECTOR' || payload.role === 'AD') {
                     navigate('/groups')
+                    dispatch({ type: 'user/login', payload })
                 }
                 if (payload.role === 'ST' || payload.role === 'STUDENT') {
                     navigate(`/profile/${res.data.user.id}`)

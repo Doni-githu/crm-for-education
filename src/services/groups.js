@@ -6,6 +6,9 @@ const Group = {
     },
     getOne(id){
         return axios.get(`/groups/${id}`)
+    },
+    make(data){
+        return axios.post('/groups/', data)
     }
 }
 

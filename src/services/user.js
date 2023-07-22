@@ -13,6 +13,9 @@ const Auth = {
     },
     all(){
         return axios.get('/student/')
+    },
+    make(data){
+        return axios.post('/student/', data)
     }
 }
 

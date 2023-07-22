@@ -6,6 +6,9 @@ const Mentor = {
     },
     all(){
         return axios.get('/teacher/')
+    },
+    create(data){
+        return axios.post('/teacher/', data)
     }
 }
 

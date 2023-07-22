@@ -9,6 +9,7 @@ import Davomat from '../Davomat/Davomat'
 import Profile from '../Profile/Profile'
 import TeacherProfile from '../TeacherProfile/TeacherProfile'
 import Auth from '../../services/user'
+import AddUser from '../addUser/addUser'
 import { context } from '../../provider/provider'
 function App() {
   const { state, dispatch } = useContext(context)
@@ -36,8 +37,9 @@ function App() {
       <Route path='/attendance/:id' element={<Davomat />} />
       <Route path='/teachers' element={<Groups />} />
       <Route path='/profile/:id' element={<Profile />} />
-      <Route path='/teacher/:id' element={<TeacherProfile />} />
-    </Routes>
+      <Route path='/teacher/:id' element={<TeacherProfile />} />  
+      <Route path="/add/:what" element={<AddUser />} />
+    </Routes >
   )
 }
 

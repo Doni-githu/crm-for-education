@@ -1,14 +1,57 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { context } from '../../provider/provider'
 import './Table.scss'
-
+import Mentor from '../../services/mentor'
+import User from '../../services/user'
+import Payment from '../../services/payment'
+import Group from '../../services/groups'
+import { useNavigate, useParams } from 'react-router-dom'
 export default function Table() {
-    const { state: { salary }, dispatch } = useContext(context)
-    const data = salary
-
+    const data = []
     function onSelect(id) {
         dispatch({ type: 'selected', payload: id })
     }
+
+    const { state, dispatch } = useContext(context)
+    const [data2, setData2] = useState([])
+    const [pays, setPays] = useState([])
+    const [slug, setSlug] = useState('')
+    const [groups, setGroups] = useState([])
+    function findAndUpdate(slug) {
+        localStorage.setItem('any', slug)
+        setSlug(slug)
+    }
+    const navigate = useNavigate()
+    const params = useParams()
+    useEffect(() => {
+        setSlug(localStorage.getItem('any'))
+        // Mentor.all()
+        //     .then((res) => {
+        //         console.log(res.data);
+        //     }).catch((err) => {
+        //         console.log(err)
+        //     })
+        // User.all()
+        //     .then((res2) => {
+        //         const filted = res2.data.filter(c => c.teachers.filter(h => h.id === parseInt(params.id)))
+        //         setData2(filted)
+
+        //     }).catch((err) => {
+        //         console.log(err)
+        //     })
+
+        // Group.all()
+        //     .then((res) => {
+        //         setGroups(res.data.filter(c => c.teacher.id === parseInt(params.id)))
+        //     })
+        // Payment.all()
+        //     .then((res3) => {
+        //         const filtered2 = res3.data.filter((item => item.teacher.id === parseInt(params.id)))
+        //         setPays(filtered2)
+        //     }).catch((err) => {
+        //         console.log(err)
+        //     })
+    }, [])
 
     return (
         <div className="salary-table">

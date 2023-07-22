@@ -19,18 +19,9 @@ export default function Header() {
     return (
         <div className='header'>
             <div className="left">
-                <div className="search">
-                    <div className='icon'>
-                        <img src="/img/search.png" alt="Search" />
-                    </div>
-                    <input placeholder={'search'} onChange={(e) => setTerm(e.target.value)} value={term} />
-                </div>
             </div>
             <div className="profile" onClick={toProfile}>
                 {state.user ? <>
-                    {localStorage.getItem('role') !== 'DR' && localStorage.getItem('role') !== 'AD' ? <>
-                        <img src={`http://127.0.0.1:8000${state.user.src}`} alt="Profile" />
-                    </> : null}
                     <p>{state.user.name} {state.user.surname}</p>
                 </> : ''}
                 <div className='down'>

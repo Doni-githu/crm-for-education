@@ -14,7 +14,11 @@ function Davomat() {
     const { state, dispatch } = useContext(context)
     const params = useParams()
     const navigate = useNavigate()
+    
     useEffect(() => {
+        if (state.role === 'ST') {
+            navigate(`/profile/${state.user.id}`)
+        }
         const id = Number(params.id)
         Group.getOne(id)
             .then((res) => {
@@ -33,24 +37,15 @@ function Davomat() {
 
         return filtered
     }
-    const changeVisiblity = async (groupId, studentId, attendanceId, rol) => {
+    const changeVisiblity = async (groupId, studentId, attendance, rol) => {
         try {
-            const foundStudent = users.students.filter(c => c.id === studentId)
-            let result = foundStudent.map((item) => {
-                return item.davomat.map(c => {
-                    if(c.id === attendanceId){
-                        return c
-                    }
-                })  
-            })
-
-            const result2 = {
-                sana: result[0][0].sana,
+            const result = {
                 keldi: rol,
-                student: result[0][0].student,
+                sana: attendance.sana,
+                student: attendance.student
             }
-            await DavomatReq.getOne(attendanceId, result2)
-            dispatch({ type: 'updateAttendance', payload: [groupId, studentId, attendanceId, rol] })
+            await DavomatReq.getOne(attendance.id, result)
+            dispatch({ type: 'updateAttendance', payload: [groupId, studentId, attendance.id, rol] })
         } catch (error) {
             console.log(error)
         }
@@ -95,18 +90,19 @@ function Davomat() {
                                 <tr key={item.id}>
                                     <td id='uuid'>
                                         <div onClick={() => toProfile(item.id)} className="user">
-                                            <img src={`http://127.0.0.1:8000${item.src}`} width={'50px'} height={'50px'} alt="" />
-                                            <span>{item.name}</span>
+                                            <span>{item.name} {item.surname}</span>
                                         </div>
                                     </td>
                                     {item.davomat.map((item2) => (
                                         <td key={item2.id} style={{ textAlign: 'center' }}>
                                             <button key={item2.id} className={`table-button ${item2.keldi}`}>
-                                                <ul className='hover-paginate'>
-                                                    <li onClick={() => changeVisiblity(users.id, item.id, item2.id, 'g')}>Qatnashmadi</li>
-                                                    <li onClick={() => changeVisiblity(users.id, item.id, item2.id, 'w')}>Sababli</li>
-                                                    <li onClick={() => changeVisiblity(users.id, item.id, item2.id, 'c')}>Qatnashdi</li>
-                                                </ul>
+                                                {state.role === 'AD' && state.role === 'DR' ? <>
+                                                    <ul className='hover-paginate'>
+                                                        <li onClick={() => changeVisiblity(users.id, item.id, item2, 'g')}>Qatnashmadi</li>
+                                                        <li onClick={() => changeVisiblity(users.id, item.id, item2, 'w')}>Sababli</li>
+                                                        <li onClick={() => changeVisiblity(users.id, item.id, item2, 'c')}>Qatnashdi</li>
+                                                    </ul>
+                                                </> : ''}
                                             </button>
                                         </td>
                                     ))}

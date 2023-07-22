@@ -84,12 +84,7 @@ function Profile() {
                         <div className="profile-box">
                             <div className="header-showcase">
                                 <div className="img">
-                                    <img src={`http://127.0.0.1:8000/${state.studentProfile.src}`} alt={state.studentProfile.username} />
-                                </div>
-                                <div className='btn'>
-                                    <button>
-                                        <img src="/img/edit.png" alt="" />
-                                    </button>
+                                    <p>{state.studentProfile.name.slice(0, 1)}</p>
                                 </div>
                             </div>
                             <div className="header-body">
@@ -111,8 +106,10 @@ function Profile() {
                                 <p className="box-title">Teachers</p>
                                 <div className="teachers">
                                     {state.studentProfile.teachers ? state.studentProfile.teachers.map((item) => (
-                                        <div className="box-item" key={item.id} onClick={() => navigate(`/teacher/${item.id}`)}>
-                                            <img src={`http://127.0.0.1:8000${item.src}`} />
+                                        <div className="box-item" key={item.id} onClick={() => state.role === 'ST' || state.role === "TR" ? null : navigate(`/teacher/${item.id}`)}>
+                                            <div className='img'>
+                                                <p>{item.name.slice(0, 1)}</p>
+                                            </div>
                                             <p className='box-name'>{item.name} {item.surname}</p>
                                             <p className="box-profession">{item.profession[0].name}</p>
                                         </div>

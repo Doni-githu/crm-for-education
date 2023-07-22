@@ -9,8 +9,11 @@ import Loader from '../../uiComponents/Loader/Loader'
 export default function Dashboard() {
     const navigate = useNavigate()
     const [groups, setGroups] = useState([])
-
+    const { state } = useContext(context)
     useEffect(() => {
+        if (state.role === 'ST') {
+            navigate(`/profile/${state.user.id}`)
+        }
         Group.all()
             .then((res) => {
                 setGroups(res.data)
@@ -24,7 +27,19 @@ export default function Dashboard() {
 
     return (
         <Layout>
-            <h1 className='dashboard-title'>Groups</h1>
+            <div className='dashboard-top'>
+                <h1 className='dashboard-title'>Groups</h1>
+                {state.role === "AD" ? <>
+                    <div className="btn">
+                        <button onClick={() => navigate('/add/group')}>
+                            <div className="img">
+                                <i className='fa-solid fa-plus'></i>
+                            </div>
+                            <p>Add Group</p>
+                        </button>
+                    </div>
+                </> : null}
+            </div>
             <div className="rows">
                 {groups ? groups.map((item) => (
                     <div onClick={() => navigate(`/attendance/${item.id}`)} className='row' key={item.id}>
@@ -42,7 +57,7 @@ export default function Dashboard() {
                         </div>
                         <div className='block four'>
                             <p>Mentor</p>
-                            <img src={`http://127.0.0.1:8000${item.teacher.src}`} alt={item.gName} />
+                            <p>{item.teacher.name} {item.teacher.surname}</p>
                         </div>
                         <div className='block five'>
                             <p>Student length</p>
@@ -50,7 +65,7 @@ export default function Dashboard() {
                         </div>
                         <div className='block six'>
                             <p>Week / Day</p>
-                            <div style={{display: 'flex', gap: '5px'}}>
+                            <div style={{ display: 'flex', gap: '5px' }}>
                                 {item.week_days.map((item) => {
                                     return <p key={item.id}>{item.name}</p>
                                 })}

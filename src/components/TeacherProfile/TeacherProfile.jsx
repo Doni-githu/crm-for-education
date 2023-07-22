@@ -52,7 +52,7 @@ function TeacherProfile() {
             })
     }, [])
 
-    const [btns] = useState([
+    const btns = [
         {
             txt: 'My data',
             id: 0,
@@ -65,7 +65,7 @@ function TeacherProfile() {
             click: findAndUpdate,
             slug: 'students'
         }
-    ])
+    ]
 
 
     return (
@@ -78,11 +78,7 @@ function TeacherProfile() {
                         <div className="profile-box">
                             <div className="header-showcase">
                                 <div className="img">
-                                    <img src={`http://127.0.0.1:8000${mentor.src}`} width={'72px'} height={'72px'} style={{
-                                        padding: '4px',
-                                        border: '1px solid var(--ext-blue)',
-                                        borderRadius: "50%"
-                                    }} alt='' />
+                                    <p>{mentor.name ? mentor.name.slice(0, 1) : ''}</p>
                                 </div>
                                 <div className='btn'>
                                     <button>
@@ -167,7 +163,7 @@ function TeacherProfile() {
                                         </table>
                                         <div className='groups'>
                                             {groups.length !== 0 ? groups.map((item) => (
-                                                <div className="group" key={item.id}>
+                                                <div onClick={() => navigate(`/attendance/${item.id}`)} className="group" key={item.id}>
                                                     <img src="/img/folder.png" />
                                                     <p className='groupName'>{item.name}</p>
                                                     <p className='studentsNumbers'>{item.students.length}</p>
@@ -181,7 +177,7 @@ function TeacherProfile() {
                                             <div key={item.id} className="student-card" onClick={() => navigate(`/profile/${item.id}`)}>
                                                 <div className="names">
                                                     <div className="img">
-                                                        <img src={`http://127.0.0.1:8000${item.src}`} width={'72px'} height={'72px'} alt={item.name} />
+                                                        <p>{item.name.slice(0, 1)}</p>
                                                     </div>
                                                     <div className="flex">
                                                         <p>{item.name} {item.surname}</p>
