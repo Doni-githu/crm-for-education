@@ -29,12 +29,11 @@ function Navigation() {
         },
         {
             route: 'salary',
-            txt: "Teacher's",
+            txt: "Students",
             icon: <i className="fa-solid fa-money-check-dollar"></i>,
             block: localStorage.getItem('role') === 'ST' ||
                 localStorage.getItem('role') === 'TR' ||
-                localStorage.getItem('role') === 'DR' ||
-                localStorage.getItem('role') === 'AD'
+                localStorage.getItem('role') === 'DR'
         },
         {
             route: 'teachers',
@@ -68,14 +67,6 @@ function Navigation() {
                             </li>
                         ))}
                         {state.role === "AD" ? <>
-                            <li>
-                                <Link to={'/add/student'}>
-                                    <div className='img'>
-                                        <i className='fa-solid fa-plus'></i>
-                                    </div>
-                                    <p>Add Student</p>
-                                </Link>
-                            </li>
                             <li>
                                 <Link to={'/add/pro'}>
                                     <div className='img'>

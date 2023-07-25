@@ -1,4 +1,17 @@
-.change{
-    grid-template-columns: 20% 20% 20% 20%;
+.change {
+    grid-template-columns: repeat(3, auto) !important;
     row-gap: 20px;
+    column-gap: 24px;
+
+    select {
+        padding: 17px 15px;
+        border: none;
+        background: #FFFFFF;
+        outline: 1px solid #D8E0F0;
+        box-shadow: 0px 1px 2px rgba(184, 200, 224, 0.222055);
+        border-radius: 14px;
+        transition: all .1s;
+        font-size: 16px;
+        color: #7D8592;
+    }
 }

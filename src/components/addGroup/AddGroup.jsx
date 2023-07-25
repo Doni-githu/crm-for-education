@@ -7,6 +7,7 @@ import Mentor from '../../services/mentor'
 import './AddGroup.scss'
 import Input from '../../uiComponents/Input/Input'
 import { useNavigate } from 'react-router-dom'
+import DavomatReq from '../../services/davomat'
 export default function AddGroup() {
   const [name, setName] = useState('')
   const [price, setPrice] = useState()
@@ -17,104 +18,88 @@ export default function AddGroup() {
   const [technologies, setTechnologies] = useState([])
   const [students, setStudents] = useState([])
   const [mentors, setMentors] = useState([])
+  const [mentor, setMentor] = useState()
+  const [technologiesId, setTechnologiesId] = useState([])
+  const [weekDaysId, setWeekDaysId] = useState([])
+  const [studentsId, setStudentsId] = useState([])
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
     Auth.all()
       .then((res) => {
-        const newRes = res.data.map((item) => ({
-          ...item,
-          active: false
-        }))
-        setStudents(newRes)
+        setStudents(res.data)
       })
     Mentor.all()
       .then((res) => {
-        const newRes = res.data.map((item) => ({
-          ...item,
-          active: false
-        }))
-        setMentors(newRes)
+        if (res.data.length !== 0) {
+          setMentor(res.data[0].id)
+          setMentors(res.data)
+        }
       })
     Technology.all()
       .then((res) => {
-        const newRes = res.data.map((item) => ({
-          ...item,
-          active: false
-        }))
-        setTechnologies(newRes)
+        setTechnologies(res.data)
       })
 
     Technology.allWeekDays()
       .then((res) => {
-        const newRes = res.data.map(item => ({
-          ...item,
-          active: false
-        }))
-        setWeekDays(newRes)
+        setWeekDays(res.data)
       })
   }, [])
 
-  const changeVisibled = (data, id, type) => {
-    if (type === "teach") {
-      const newStudents = data.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            active: true
-          }
-
-        }
-        return { ...item, active: false }
-      })
-      setMentors(newStudents)
-    }
-
-    const newData = data.map((item) => {
-      if (item.id === id) {
-        return {
-          ...item,
-          active: !item.active,
-        }
-      }
-      return item
-    })
-
+  const changeHandler = (selected, type) => {
     if (type === "tech") {
-      setTechnologies(newData)
+      setTechnologiesId(new Array(...selected).map(c => Number(c.value)))
+    }
+    if (type === "week") {
+      setWeekDaysId(new Array(...selected).map(c => Number(c.value)))
     }
     if (type === "student") {
-      setStudents(newData)
-    }
-
-    if (type === "week") {
-      setWeekDays(newData)
+      setStudentsId(new Array(...selected).map(c => Number(c.value)))
     }
   }
 
-  const addGroupMain = () => {
-    if (!completeDate || !beginDate || students.length === 0 || mentors.length === 0 || technologies.length === 0 || !whenStart || !price || !name) {
+
+  const addGroupMain = async () => {
+    if (!completeDate || !beginDate || !whenStart || !price || !name) {
       setError("All fields are required")
       return
     }
     const technologies_id = technologies.filter(c => c.active).map((c) => Number(c.id))
     const week_days_id = weekDays.filter(c => c.active).map((c) => Number(c.id))
     const students_id = students.filter(c => c.active).map(c => Number(c.id))
-    const teacher = Number(mentors.find(c => c.active).id)
-
+    const start = Date.parse(beginDate)
+    let startBegin = new Date(beginDate);
+    const end = Date.parse(completeDate)
+    const days = Math.round((end - start) / 1000 / 60 / 60 / 24)
+    // for (let i = 0; i < students_id.length; i++) {
+    //   const element = students_id[i];
+    //   for (let j = 0; j < days; j++) {
+    //     startBegin.setDate(startBegin.getDate() + j)
+    //     let date = startBegin.toString().slice(0, 15)
+    //     if (weekDays.filter(c => c.active).map((item) => item.name).includes(date.slice(0, 3))) {
+    //       let data = {
+    //         keldi: 'e',
+    //         student: element,
+    //         sana: date
+    //       }
+    //       await DavomatReq.create(data)
+    //     }
+    //   }
+    //   startBegin = new Date(beginDate)
+    // }
     const data = {
-      technologies_id,
-      week_days_id,
-      students_id,
-      teacher,
+      technologies_id: technologiesId,
+      week_days_id: weekDaysId,
+      students_id: studentsId,
+      teacher: mentor,
       begin_date: beginDate,
       when_start: whenStart,
       complete_date: completeDate,
       name,
       price
     }
-
     Group.make(data)
       .then((res) => {
         navigate('/groups')
@@ -139,38 +124,26 @@ export default function AddGroup() {
           <Input type={"time"} label={'When start'} state={whenStart} setState={setWhenStart} />
         </div>
         <div className="form-grid change">
-          <div className="hover-pagination-form">
-            <p className="label">Technologies: </p>
-            <ul className="pagination-hover">
-              {technologies ? technologies.map(item => (
-                <li key={item.id} onClick={() => changeVisibled(technologies, item.id, 'tech')} className={item.active ? 'active' : ''}>{item.name}</li>
-              )) : null}
-            </ul>
-          </div>
-          <div className="hover-pagination-form">
-            <p className="label">Teachers: </p>
-            <ul className="pagination-hover">
-              {mentors ? mentors.map(item => (
-                <li key={item.id} onClick={() => changeVisibled(mentors, item.id, 'teach')} className={item.active ? 'active' : ''}>{item.name} {item.surname}</li>
-              )) : null}
-            </ul>
-          </div>
-          <div className="hover-pagination-form">
-            <p className="label">Students: </p>
-            <ul className="pagination-hover">
-              {students ? students.map(item => (
-                <li key={item.id} onClick={() => changeVisibled(students, item.id, 'student')} className={item.active ? 'active' : ''}>{item.name}</li>
-              )) : null}
-            </ul>
-          </div>
-          <div className="hover-pagination-form">
-            <p className="label">Week days: </p>
-            <ul className="pagination-hover">
-              {weekDays ? weekDays.map(item => (
-                <li key={item.id} onClick={() => changeVisibled(weekDays, item.id, 'week')} className={item.active ? 'active' : ''}>{item.name} {item.surname}</li>
-              )) : null}
-            </ul>
-          </div>
+          <select onChange={(e) => changeHandler(e.target.selectedOptions, "tech")} multiple>
+            {technologies.length !== 0 ? technologies.map(item => (
+              <option value={item.id} key={item.id}>{item.name}</option>
+            )) : null}
+          </select>
+          <select onChange={(e) => setMentor(Number(e.target.value))}>
+            {mentors.length !== 0 ? mentors.map(item => (
+              <option value={item.id} key={item.id}>{item.name} {item.surname}</option>
+            )) : null}
+          </select>
+          <select onChange={(e) => changeHandler(e.target.selectedOptions, "student")} multiple>
+            {students.length !== 0 ? students.map(item => (
+              <option value={item.id} key={item.id}>{item.name} {item.surname}</option>
+            )) : null}
+          </select>
+          <select onChange={(e) => changeHandler(e.target.selectedOptions, "week")} multiple>
+            {weekDays.length !== 0 ? weekDays.map(item => (
+              <option value={item.id} key={item.id}>{item.name}</option>
+            )) : null}
+          </select>
         </div>
         <div className="btn-container">
           <div className="btn">

@@ -15,7 +15,14 @@
             font-size: 36px;
             line-height: 49px;
             font-family: 'Medium';
-            color: #0A1629;
+        }
+
+        .label-placeholder {
+            font-size: 16px !important;
+            font-family: 'Light' !important;
+            line-height: 10px !important;
+            margin-bottom: 20px;
+            color: #7D8592 !important;
         }
 
         .payment-form {
@@ -27,8 +34,9 @@
                 display: flex;
                 gap: 15px;
                 margin-bottom: 12px;
-                .radio-btn{
-                    button{
+
+                .radio-btn {
+                    button {
                         padding: 7px 12px;
                         font-size: 20px;
                         color: #fff;
@@ -38,8 +46,8 @@
                     }
                 }
 
-                .radio-active{
-                    button{
+                .radio-active {
+                    button {
                         opacity: .7;
                     }
                 }

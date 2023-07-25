@@ -14,8 +14,17 @@ const Auth = {
     all(){
         return axios.get('/student/')
     },
+    getOne(id){
+        return axios.get(`/student/${id}`)
+    },
     make(data){
         return axios.post('/student/', data)
+    },
+    allAdmin(){
+        return axios.get('/administrator/')
+    },
+    edit(id, data){
+        return axios.put(`/student/${id}`, data)
     }
 }
 

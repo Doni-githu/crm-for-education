@@ -5,7 +5,7 @@ import Technology from "../../services/technology"
 import Profession from "../../services/profession"
 import Mentors from "../../services/mentor"
 import Auth from "../../services/user"
-import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export default function AddStudent() {
   const [name, setName] = useState('')
@@ -16,24 +16,23 @@ export default function AddStudent() {
   const [professions, setProfessions] = useState([])
   const [technology, setTechnology] = useState([])
   const [phone, setPhone] = useState('')
-  const [file, setFile] = useState({})
   const [error, setError] = useState('')
+  const [professionsId, setProfessionsId] = useState([])
   useEffect(() => {
     Mentors.all()
       .then((res) => {
-        const newResponse = res.data.map(item => ({
-          ...item,
-          active: false
-        }))
-        setMentors(newResponse)
+        if (res.data.length !== 0) {
+          const newResponse = res.data.map(item => ({
+            ...item,
+            active: false
+          }))
+          newResponse[0].active = true
+          setMentors(newResponse)
+        }
       })
     Profession.all()
       .then((res) => {
-        const newResponse = res.data.map(item => ({
-          ...item,
-          active: false
-        }))
-        setProfessions(newResponse)
+        setProfessions(res.data)
       })
     Technology.all()
       .then(res => {
@@ -44,15 +43,24 @@ export default function AddStudent() {
         setTechnology(newResponse)
       })
   }, [])
+  const navigate = useNavigate()
 
   const addStudentMain = () => {
     if (!name || !surname || !password || !username || technology.length === 0 || professions.length === 0 || mentors.length === 0 || !phone) {
       setError('All fields are required')
       return
     }
-    const professions_id = professions.filter((item) => item.active).map((item) => Number(item.id))
     const mentors_id = mentors.filter((item) => item.active).map((item) => Number(item.id))
-    const technologies_id = technology.filter(c => c.active).map((item) => Number(item.id))
+    const proTech = professions.filter(c => professionsId.includes(c.id))
+    const ids = []
+
+    for (let i = 0; i < proTech.length; i++) {
+      const element = proTech[i];
+      for (let i = 0; i < element.technologies.length; i++) {
+        const element2 = element.technologies[i];
+        ids.push(element2.id)
+      }
+    }
 
 
 
@@ -60,18 +68,17 @@ export default function AddStudent() {
       name,
       surname,
       username,
-      technologies_id,
+      technologies_id: ids,
       teachers_id: mentors_id,
-      profession_id: professions_id,
+      profession_id: professionsId,
       password,
       phone: parseInt(phone.replace('+', '')),
       davomat: [],
     }
 
-
     Auth.make(data)
       .then((res) => {
-        Navigate({ to: '/groups' })
+        navigate('/salary')
       }).catch((err) => {
         console.log(err)
       })
@@ -86,19 +93,16 @@ export default function AddStudent() {
       }
       return item
     })
-    if (type === "tech") {
-      setTechnology(newArray)
-      return
-    }
-    if (type === "pro") {
-      setProfessions(newArray)
-      return
-    }
     if (type === "teach") {
       setMentors(newArray)
       return
     }
   }
+
+  const changeMulti = (selected) => {
+    setProfessionsId(new Array(...selected).map((item) => Number(item.value)))
+  }
+
   return (
     <div className='add-container'>
       <div className="title">
@@ -113,34 +117,21 @@ export default function AddStudent() {
           <Input state={username} setState={setUsername} placeholder={'User name kiriting'} />
           <Input type="password" state={password} setState={setPassword} placeholder={'Parol kiriting'} />
         </div>
-        <div className="form-block one">
-          <Input type="tel" state={phone} setState={setPhone} placeholder={'Telefon raqamni kiriting'} />
-          <div className="hover-pagination-form">
-            <p className="label">Professions: </p>
-            <ul className="pagination-hover">
-              {professions ? professions.map(item => (
-                <li key={item.id} onClick={() => changeVisibled(professions, item.id, 'pro')} className={item.active ? 'active' : ''}>{item.name}</li>
-              )) : null}
-            </ul>
-          </div>
-        </div>
         <div className="form-grid">
-
-          <div className="hover-pagination-form">
-            <p className="label">Technologies: </p>
-            <ul className="pagination-hover">
-              {technology ? technology.map(item => (
-                <li key={item.id} onClick={() => changeVisibled(technology, item.id, 'tech')} className={item.active ? 'active' : ''}>{item.name}</li>
+          <Input type="tel" state={phone} setState={setPhone} placeholder={'Telefon raqamni kiriting'} />
+          <div className="select-container">
+            <select>
+              {mentors.length !== 0 ? mentors?.map(item => (
+                <option key={item.id} value={item.id}>{item.name} {item.surname}</option>
               )) : null}
-            </ul>
+            </select>
           </div>
-          <div className="hover-pagination-form">
-            <p className="label">Teachers: </p>
-            <ul className="pagination-hover">
-              {mentors ? mentors.map(item => (
-                <li key={item.id} onClick={() => changeVisibled(mentors, item.id, 'teach')} className={item.active ? 'active' : ''}>{item.name} {item.surname}</li>
+          <div className="select-container">
+            <select id="professions" multiple onChange={(e) => changeMulti(e.target.selectedOptions)}>
+              {professions.length !== 0 ? professions?.map((item) => (
+                <option key={item.id} value={item.id}>{item.name}</option>
               )) : null}
-            </ul>
+            </select>
           </div>
         </div>
         <div className="btn-container">

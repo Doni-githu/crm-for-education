@@ -9,6 +9,9 @@ const Mentor = {
     },
     create(data){
         return axios.post('/teacher/', data)
+    },
+    edit(id, data){
+        return axios.put(`/teacher/${id}`, data)
     }
 }
 

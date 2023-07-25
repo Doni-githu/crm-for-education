@@ -11,6 +11,7 @@ import TeacherProfile from '../TeacherProfile/TeacherProfile'
 import Auth from '../../services/user'
 import AddUser from '../addUser/addUser'
 import { context } from '../../provider/provider'
+import EditHandler from '../EditHandler/EditHandler'
 function App() {
   const { state, dispatch } = useContext(context)
   useEffect(() => {
@@ -39,6 +40,7 @@ function App() {
       <Route path='/profile/:id' element={<Profile />} />
       <Route path='/teacher/:id' element={<TeacherProfile />} />  
       <Route path="/add/:what" element={<AddUser />} />
+      <Route path='/edit/:what/:id' element={<EditHandler />} />
     </Routes >
   )
 }

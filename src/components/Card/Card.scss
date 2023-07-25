@@ -29,12 +29,19 @@
             justify-self: center;
             align-items: center;
 
-            img {
+            .img {
                 width: 58px;
                 border-radius: 50%;
                 height: 58px;
-                padding: 4px;
-                outline: 2px solid #3F8CFF;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: var(--blue);
+
+                p {
+                    font-size: 38px;
+                    color: #fff;
+                }
             }
 
             .card-btn button {

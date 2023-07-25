@@ -1,16 +1,65 @@
+@mixin some() {
+    border: none;
+    color: #fff;
+
+    padding: 7px 12px;
+    font-size: 20px;
+    border: none;
+    border-radius: 7px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    background-color: var(--blue);
+
+    span {
+        color: #fff;
+    }
+
+    .img {
+        width: 20px;
+        display: flex;
+        align-items: center;
+        height: 20px;
+        color: #fff;
+
+        i {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
 .attendance-container {
     margin-top: 70px;
     display: flex;
     height: 80vh;
     flex-direction: column;
 
+    .attendance-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 53px;
+
+        .btn-contain {
+            display: flex;
+            gap: 15px;
+        }
+
+        .danger button {
+            background-color: #F65160 !important;
+        }
+
+        .btn button {
+            @include some();
+        }
+    }
+
     .title {
         font-family: 'Medium';
         font-style: normal;
         font-weight: 700;
         font-size: 36px;
-        margin-bottom: 53px;
-        line-height: 24px;
         color: #91929E;
     }
 
@@ -27,8 +76,8 @@
             height: 100%;
             padding: 25px 0;
             display: flex;
-            gap: 210px;
             align-items: center;
+            gap: 15px;
 
             .box-information {
                 padding: 5px 7px;
@@ -66,13 +115,71 @@
         }
     }
 
+    .arrows {
+        display: flex;
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        gap: 12px;
+
+        .btn {
+            button {
+                border: none;
+                padding: 5px;
+                background-color: var(--blue);
+                color: #fff;
+                transition: all 0.5s;
+
+                &:hover {
+                    opacity: 0.7;
+                }
+            }
+        }
+
+        .btn-next {
+            button {
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+        }
+
+        .btn-prev {
+            button {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+        }
+    }
+
+    .red:first-child {
+        border: none !important;
+    }
+
+    .red {
+        border-left: 1px solid #0A1629;
+
+    }
+
+    .table-container {
+        width: 1185px;
+        overflow: scroll;
+        position: relative;
+    }
+
+    ::-webkit-scrollbar {
+        height: 3px;
+    }
+
     table {
+        position: relative;
         box-shadow: 0px 6px 58px rgba(196, 203, 214, 0.103611);
         border-top-left-radius: 24px;
+        overflow: hidden;
         border-top-right-radius: 24px;
         background-color: #fff;
-        padding-top: 24px;
-
+        padding: 50px 0;
+        width: 1200px;
+        table-layout: fixed;
 
         thead {
             height: 20px;
@@ -129,7 +236,6 @@
                     font-weight: 700;
                     font-size: 13px;
                     line-height: 18px;
-                    /* identical to box height, or 138% */
 
                     text-align: center;
 
@@ -145,6 +251,15 @@
             margin-top: 2rem;
 
             tr {
+                &:last-child {
+                    .hover-paginate {
+                        top: -10px;
+                    }
+                }
+
+                .active {
+                    border-left: 1px solid red;
+                }
 
                 #uuid {
                     .user {
@@ -172,23 +287,39 @@
                         }
                     }
 
+                    .btn {
+                        display: flex;
+                        justify-content: center;
+                    }
+
+                    .btn button {
+                        padding: 7px 12px;
+                        border: none;
+                        background-color: var(--blue);
+                        color: #fff;
+                        border-radius: 7px;
+                        cursor: pointer;
+                        user-select: none;
+                        font-size: 23px;
+                    }
+
                     .table-button {
                         border: none;
                         background-color: #F4F9FD;
                         border: none;
                         width: 28px;
+                        position: relative;
                         margin: 4px;
-                        border-radius: 7px;
                         height: 44px;
                         border-radius: 7px;
 
 
 
                         .hover-paginate {
-                            position: absolute;
                             background-color: #fff;
                             color: #000;
-                            bottom: -85px;
+                            position: absolute;
+                            z-index: 9999;
                             left: 0;
                             flex-direction: column;
                             list-style: none;
@@ -197,7 +328,6 @@
                             border-radius: 10px;
                             transform: scale(0);
                             transition: all 0.5s;
-                            z-index: 999;
 
                             li {
                                 width: 100%;

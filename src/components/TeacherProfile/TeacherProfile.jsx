@@ -31,10 +31,16 @@ function TeacherProfile() {
                 console.log(err)
             })
         User.all()
-            .then((res2) => {
-                const filted = res2.data.filter(c => c.teachers.filter(h => h.id === parseInt(params.id)))
-                setData2(filted)
-
+            .then((res) => {
+                for (let i = 0; i < res.data.length; i++) {
+                    const element = res.data[i];
+                    for (let j = 0; j < element.teachers.length; j++) {
+                        const element2 = element.teachers[j];
+                        if (element2.id === parseInt(params.id)) {
+                            setData2([...data2, element])
+                        }
+                    }
+                }
             }).catch((err) => {
                 console.log(err)
             })
@@ -71,9 +77,20 @@ function TeacherProfile() {
     return (
         <Layout>
             {mentor ? <>
-
-                <div className="teacher-container">
-                    <p className='title'>Teacher {mentor.name}</p>
+                <div className="teacher-container attendance-container">
+                    <div className="teacher-title attendance-title">
+                        <p className='title'>Teacher {mentor.name}</p>
+                        <div className="btn-contain">
+                            <div className="btn">
+                                <button onClick={() => navigate(`/edit/teacher/${mentor.id}`)}>
+                                    <div className="img">
+                                        <i className='fa-solid fa-edit'></i>
+                                    </div>
+                                    <span>Edit teacher</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <div className="context">
                         <div className="profile-box">
                             <div className="header-showcase">
@@ -91,13 +108,15 @@ function TeacherProfile() {
                                     <p>{mentor.surname} {mentor.name}</p>
                                 </div>
                                 {mentor.profession ? mentor.profession.map((item) => (
-                                    <p className='profession' key={item.id}>{item.name}</p>
+                                    <div key={item.id + 3}>
+                                        <p className='profession' key={item.id}>{item.name}</p>
+                                        <ul key={item.id + 1}>
+                                            {item.technologies ? item.technologies.map((item2) => (
+                                                <li key={item2.id}>{item2.name}</li>
+                                            )) : null}
+                                        </ul>
+                                    </div>
                                 )) : ''}
-                                <ul>
-                                    {mentor.technologies ? mentor.technologies.map((item) => (
-                                        <li key={item.id}>{item.name}</li>
-                                    )) : null}
-                                </ul>
                             </div>
                         </div>
                         <div className="for-right">
@@ -113,54 +132,56 @@ function TeacherProfile() {
                             <div className="show">
                                 {localStorage.getItem('any') === 'data' ? <>
                                     <div className="any">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th style={{ width: '28%' }}>
-                                                        <p>ID</p>
-                                                    </th>
-                                                    <th>
-                                                        <p>Name</p>
-                                                    </th>
-                                                    <th>
-                                                        <p>Surname</p>
-                                                    </th>
-                                                    <th>
-                                                        <p>Month</p>
-                                                    </th>
-                                                    <th>
-                                                        <p>Salary</p>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {pays.map((item, idx) => (
-                                                    <tr key={item.id * 2}>
-                                                        <td>
-                                                            <div className="check">
-                                                                <label>
-                                                                    <input type="checkbox" className='hid' />
-                                                                    <span className='fake'></span>
-                                                                </label>
-                                                                <p>{idx + 1}</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p>{mentor.name}</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>{mentor.surname}</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>{item.month}</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>{item.quantity}</p>
-                                                        </td>
+                                        {pays.length !== 0 ? <>
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th style={{ width: '28%' }}>
+                                                            <p>ID</p>
+                                                        </th>
+                                                        <th>
+                                                            <p>Name</p>
+                                                        </th>
+                                                        <th>
+                                                            <p>Surname</p>
+                                                        </th>
+                                                        <th>
+                                                            <p>Month</p>
+                                                        </th>
+                                                        <th>
+                                                            <p>Salary</p>
+                                                        </th>
                                                     </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    {pays.map((item, idx) => (
+                                                        <tr key={item.id * 2}>
+                                                            <td>
+                                                                <div className="check">
+                                                                    <label>
+                                                                        <input type="checkbox" className='hid' />
+                                                                        <span className='fake'></span>
+                                                                    </label>
+                                                                    <p>{idx + 1}</p>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <p>{mentor.name}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>{mentor.surname}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>{item.month}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>{item.quantity}</p>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </> : null}
                                         <div className='groups'>
                                             {groups.length !== 0 ? groups.map((item) => (
                                                 <div onClick={() => navigate(`/attendance/${item.id}`)} className="group" key={item.id}>

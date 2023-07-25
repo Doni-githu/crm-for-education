@@ -9,6 +9,12 @@ const Group = {
     },
     make(data){
         return axios.post('/groups/', data)
+    },
+    edit(id, data){
+        return axios.put(`/groups/${id}`, data)
+    },
+    remove(id){
+        return axios.delete(`/groups/${id}`)
     }
 }
 

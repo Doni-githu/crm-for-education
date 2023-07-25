@@ -5,10 +5,12 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Auth from '../../services/user'
 import { context } from '../../provider/provider'
 import Loader from '../../uiComponents/Loader/Loader'
+import Payment from '../../services/payment'
 
 function Profile() {
     const { state, dispatch } = useContext(context)
     const [isLoading, setLoading] = useState(false)
+    const [pays, setPays] = useState([])
     const params = useParams()
     useEffect(() => {
         setLoading(true)
@@ -23,6 +25,14 @@ function Profile() {
                     setLoading(false)
                 })
         }
+
+
+
+        Payment.all()
+            .then(res => {
+                const filtered = res.data.filter(c => c.student.id === parseInt(params.id))
+                setPays(filtered)
+            })
     }, [])
     const now = new Date().toJSON()
     let result = changeAttendance(parseInt(now.split('-')[1]))
@@ -75,11 +85,23 @@ function Profile() {
         }
     ]
 
+
+
     return (
         <>
             {state.studentProfile ? <Layout>
                 <div className='profile-container'>
-                    <p className='title'>Student {state.studentProfile.name} {state.studentProfile.surname}</p>
+                    <div className="profile-header">
+                        <p className='title'>Student {state.studentProfile.name} {state.studentProfile.surname}</p>
+                        <div className="btn">
+                            <button onClick={() => navigate(`/edit/student/${state.studentProfile.id}`)}>
+                                <div className="img">
+                                    <i className='fa-solid fa-edit'></i>
+                                </div>
+                                <span>Edit</span>
+                            </button>
+                        </div>
+                    </div>
                     <div className="context">
                         <div className="profile-box">
                             <div className="header-showcase">
@@ -118,41 +140,41 @@ function Profile() {
                             </div>
                             <div className="box">
                                 <p className='box-title'>Lessons day</p>
-                                <div className="lessons">
-                                    <div className="top">
-                                        {state.studentProfile.davomat.map((_, idx) => (
-                                            <p key={idx}>{idx + 1}</p>
-                                        ))}
-                                    </div>
-                                    <div className="bottom">
-                                        {state.studentProfile.davomat.map((item, idx) => (
-                                            <p key={idx} className={`simple ${item.keldi}`}></p>
-                                        ))}
-                                    </div>
+                                <div className="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                {new Array(state.studentProfile.davomat.length).fill(0).map((c, i) => c + i).map(item => (
+                                                    <th key={item}>
+                                                        <span>{item}</span>
+                                                    </th>
+                                                ))}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                {state.studentProfile.davomat.map(item => (
+                                                    <td key={item.id}>
+                                                        <div className={`table-button ${item.keldi}`}>
+
+                                                        </div>
+                                                    </td>
+                                                ))}
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             <div className="box">
                                 <p className='box-title'>Payments</p>
-                                <table className='payment'>
-                                    <thead>
-                                        <tr>
-                                            {month.map((item, idx) => (
-                                                <th key={idx}>
-                                                    <p>{item.txt}</p>
-                                                </th>
-                                            ))}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            {month.map((item, idx) => (
-                                                <td key={idx}>
-                                                    <p>{item.priced ? 'Priced' : 'No Priced'}</p>
-                                                </td>
-                                            ))}
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div className='payment'>
+                                    {pays.map((item, idx) => (
+                                        <div key={idx} className='pay'>
+                                            <p>{item.month}</p>
+                                            <p>{item.quantity}</p>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                             <div className="box">
                                 <p className="box-title">Checks</p>

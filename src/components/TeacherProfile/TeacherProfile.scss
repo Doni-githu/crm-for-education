@@ -1,3 +1,5 @@
+
+
 .teacher-container {
     margin-top: 45px;
 
@@ -16,7 +18,7 @@
         .profile-box {
             width: 264px;
             padding: 14px 33px;
-            height: 100vh;
+            min-height: 65vh;
             border-radius: 14px;
             background-color: #fff;
 
@@ -300,11 +302,12 @@
                         .boxs {
                             display: flex;
                             gap: 30px;
-
+                            gap: 12px;
                             .box {
                                 display: flex;
                                 flex-direction: column;
                                 gap: 4px;
+                                justify-content: center;
 
                                 p:first-child {
                                     color: #91929E;

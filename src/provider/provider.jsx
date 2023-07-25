@@ -9,7 +9,7 @@ const initialState = {
     salary: [],
     mentor: {},
     profile: null,
-    users: null,
+    users: {},
     selectedTeachs: [],
     isLoading: false,
     user: null,
@@ -54,6 +54,21 @@ export function reducer(state = initialState, { type, payload }) {
             return { ...state, studentProfile: payload }
         case "startLook":
             return { ...state, lookingRole: payload }
+        case "upDataSomeThing":
+            const [post, id] = payload
+            const students = state.users.students.map(item => {
+                if(item.id === id){
+                    return {
+                        ...item,
+                        davomat: [
+                            ...item.davomat,
+                            post
+                        ]
+                    }
+                }
+                return item
+            })
+            return { ...state, users: { ...state.users, students } }
         default:
             return state
     }

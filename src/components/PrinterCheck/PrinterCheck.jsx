@@ -16,7 +16,7 @@ export default function PrinterCheck({ params }) {
                         <p className='d50'>{month < 10 ? `0${month}` : month}</p>
                         <p className='d30'><span>&#8810;</span>{year}<span>&#8811;</span></p>
                     </div>
-                    <p className='payment-name-text'>F.I.O {params.name}</p>
+                    <p className='payment-name-text'>F.I.O {params.students.find(c => c.id === parseInt(params.name)).name} {params.students.find(c => c.id === parseInt(params.name)).surname}</p>
                 </div>
                 <div className='payment-body'>
                     <div className='payment-header-box'>
@@ -32,7 +32,7 @@ export default function PrinterCheck({ params }) {
 
                     </div>
                     <div className='payment-body-box'>
-                        <p>{params.group}</p>
+                        <p>{params.groups.find(c => c.id === parseInt(params.group)).name}</p>
                     </div>
                     <div className='payment-body-box'>
                         <p>{params.price}</p>
@@ -44,11 +44,11 @@ export default function PrinterCheck({ params }) {
 
                     </div>
                     <div className='payment-body-box'>
-
+                        <p>{params.admins.find(c => c.id === parseInt(params.admin)).name} {params.admins.find(c => c.id === parseInt(params.admin)).surname}</p>
                     </div>
                     <div className='payment-body-box'>
                         {params.untilDay}
-                    </div>  
+                    </div>
                 </div>
                 <div className='payment-footer'>
                     <div className="payment-name" style={{
@@ -58,7 +58,7 @@ export default function PrinterCheck({ params }) {
                         flexDirection: 'column',
                         gap: '5px'
                     }}>
-                        <p className='payment-name-text'>F.I.O {params.mentor}</p>
+                        <p className='payment-name-text'>F.I.O {params.mentors.find((c) => c.id === parseInt(params.mentor)).name} {params.mentors.find((c) => c.id === parseInt(params.mentor)).surname}</p>
 
                     </div>
                 </div>

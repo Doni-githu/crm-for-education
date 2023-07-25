@@ -5,7 +5,7 @@ import Groups from "../../services/groups"
 import User from "../../services/user"
 
 function Card({ item }) {
-    const [students, setStudents] = useState(0)
+    const [students, setStudents] = useState([])
     const [groups, setGroups] = useState(0)
     const navigate = useNavigate()
 
@@ -21,8 +21,15 @@ function Card({ item }) {
             })
         User.all()
             .then((res) => {
-                const studentsLength = res.data.filter(c => c.teachers.filter(h => h.id === item.id)).length
-                setStudents(studentsLength)
+                for (let i = 0; i < res.data.length; i++) {
+                    const element = res.data[i];
+                    for (let j = 0; j < element.teachers.length; j++) {
+                        const element2 = element.teachers[j];
+                        if(element2.id === item.id){
+                            setStudents([...students, element])
+                        }
+                    }
+                }
             })
     }, [])
 
@@ -30,7 +37,11 @@ function Card({ item }) {
     return (
         <div className='card'>
             <div className="card-top">
+
                 <div className='card-bottom-profile'>
+                    <div className="img">
+                        <p>{item.name.slice(0, 1)}</p>
+                    </div>
                     <strong className='mentor-name'>{item.name} {item.surname}</strong>
                 </div>
                 <div className='card-bottom-profile'>
@@ -42,8 +53,8 @@ function Card({ item }) {
             </div>
             <div className="card-bottom">
                 <div className='card-bottom-info'>
-                    <p>{students}</p>
-                    <p>{students > 1 ? "O'quvchilari" : "O'quvchi"}</p>
+                    <p>{students.length}</p>
+                    <p>{students.length > 1 ? "O'quvchilari" : "O'quvchi"}</p>
                 </div>
                 <div className='card-bottom-info'>
                     <p>{groups}</p>
