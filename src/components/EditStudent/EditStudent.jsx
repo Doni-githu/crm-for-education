@@ -128,7 +128,6 @@ export default function EditStudent({ id }) {
         <div className='add-container'>
             <div className="title">
                 <p>Edit Student</p>
-                {state}
             </div>
             <form onSubmit={e => e.preventDefault()}>
                 <div className="form-block">
@@ -154,7 +153,7 @@ export default function EditStudent({ id }) {
                     <div className="hover-pagination-form">
                         <p className="label">Technologies: </p>
                         <ul className="pagination-hover">
-                            {technologies ? technologies.map(item => (
+                            {technologies.length !== 0   ? technologies.map(item => (
                                 <li key={item.id} onClick={() => changeVisibled(technologies, item.id, 'tech')} className={item.active ? 'active' : ''}>{item.name}</li>
                             )) : null}
                         </ul>
@@ -162,7 +161,7 @@ export default function EditStudent({ id }) {
                     <div className="hover-pagination-form">
                         <p className="label">Teachers: </p>
                         <ul className="pagination-hover">
-                            {teachers ? teachers.map(item => (
+                            {teachers.length !== 0 ? teachers.map(item => (
                                 <li key={item.id} onClick={() => changeVisibled(teachers, item.id, 'teach')} className={item.active ? 'active' : ''}>{item.name} {item.surname}</li>
                             )) : null}
                         </ul>

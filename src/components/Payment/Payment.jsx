@@ -133,7 +133,7 @@ function Payment() {
                                 </div>
                             </div>
                             <div className='payment-button'>
-                                <button onClick={Pay}>Print</button>
+                                <button onClick={Pay}>Pay</button>
                             </div>
                         </div>
                     </div>

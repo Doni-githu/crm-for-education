@@ -93,14 +93,16 @@ function Profile() {
                 <div className='profile-container'>
                     <div className="profile-header">
                         <p className='title'>Student {state.studentProfile.name} {state.studentProfile.surname}</p>
-                        <div className="btn">
-                            <button onClick={() => navigate(`/edit/student/${state.studentProfile.id}`)}>
-                                <div className="img">
-                                    <i className='fa-solid fa-edit'></i>
-                                </div>
-                                <span>Edit</span>
-                            </button>
-                        </div>
+                        {state.role === "AD" || state.role === "DR" ? <>
+                            <div className="btn">
+                                <button onClick={() => navigate(`/edit/student/${state.studentProfile.id}`)}>
+                                    <div className="img">
+                                        <i className='fa-solid fa-edit'></i>
+                                    </div>
+                                    <span>Edit</span>
+                                </button>
+                            </div>
+                        </> : null}
                     </div>
                     <div className="context">
                         <div className="profile-box">
@@ -176,7 +178,7 @@ function Profile() {
                                     ))}
                                 </div>
                             </div>
-                            <div className="box">
+                            {/* <div className="box">
                                 <p className="box-title">Checks</p>
                                 <div className="checks">
                                     {month.map((item, idx) => (
@@ -185,7 +187,7 @@ function Profile() {
                                         </div>
                                     ))}
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

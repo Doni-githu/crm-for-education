@@ -25,6 +25,9 @@ const Auth = {
     },
     edit(id, data){
         return axios.put(`/student/${id}`, data)
+    },
+    removeStudent(id){
+        return axios.delete(`/student/${id}`)
     }
 }
 

@@ -22,18 +22,22 @@ function Davomat() {
         const id = Number(params.id)
         Group.getOne(id)
             .then((res) => {
-                let data2 = []
-                for (let i = 0; i < res.data.students.length; i++) {
-                    const element = res.data.students[i];
-                    for (let j = 0; j < element.davomat.length; j++) {
-                        const element2 = element.davomat[j];
-                        if (element2.group === id) {
-                            data2.push(element2)
+                if (res.data.students.length !== 0) {
+                    let data2 = []
+                    for (let i = 0; i < res.data.students.length; i++) {
+                        const element = res.data.students[i];
+                        for (let j = 0; j < element.davomat.length; j++) {
+                            const element2 = element.davomat[j];
+                            if (element2.group === id) {
+                                data2.push(element2)
+                            }
                         }
                     }
+                    const data = { ...res.data, davomat: data2 }
+                    dispatch({ type: 'attendance', payload: data })
+                }else{
+                    navigate(-1)
                 }
-                const data = { ...res.data, davomat: data2 }
-                dispatch({ type: 'attendance', payload: data })
             }).catch((err) => {
                 console.log(err)
             })
@@ -105,7 +109,7 @@ function Davomat() {
                 const element2 = element.davomat[i];
                 if (element2.group !== users.id) {
                     max = 0
-                } 
+                }
                 else if (element.davomat.length > max) {
                     max = element.davomat.length;
                 }
@@ -192,7 +196,7 @@ function Davomat() {
                                                 <span>{item.name} {item.surname}</span>
                                             </div>
                                         </td>
-                                        {item.davomat.map((item2, index2) => (
+                                        {item.davomat ? item.davomat.map((item2, index2) => (
                                             item2.group === users.id ? <>
                                                 <td key={item2.id} className={classNameFunc(index2)} style={{ textAlign: 'center' }}>
                                                     <button key={item2.id} className={`table-button ${item2.keldi}`}>
@@ -206,7 +210,7 @@ function Davomat() {
                                                     </button>
                                                 </td>
                                             </> : null
-                                        ))}
+                                        )) : null}
                                         <td id='uuid2' style={{ textAlign: 'center' }}>
                                             <button className='table-button c' style={{ color: '#fff' }} onClick={() => addSomeThing(item.id)}>
                                                 <i className='fa-solid fa-plus'></i>

@@ -8,6 +8,7 @@
         display: grid;
         background-color: var(--ext-blue);
         grid-template-columns: repeat(5, auto);
+        padding-right: 25px;
 
         .col-header {
             height: 68px;
@@ -22,25 +23,30 @@
 
     .table-body {
         display: flex;
+        position: relative;
         flex-direction: column;
 
         .table-room {
+            width: 97%;
             display: grid;
             grid-template-columns: repeat(5, auto);
-            position: relative;
 
-            .absolute .btn button {
+            .absolute {
                 position: absolute;
                 right: 2%;
                 top: 25%;
                 transition: all 0.3s;
+                display: flex;
+                gap: 5px;
 
-                &:hover {
-                    opacity: 0.7;
+
+                .btn button {
+                    @include some();
+
+                    &:hover {
+                        opacity: 0.7;
+                    }
                 }
-
-                @include some();
-
             }
 
             .col-body {

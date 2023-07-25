@@ -6,8 +6,10 @@ import User from '../../services/user'
 import Payment from '../../services/payment'
 import Group from '../../services/groups'
 import { useNavigate, useParams } from 'react-router-dom'
+import Auth from '../../services/user'
 export default function Table() {
     const [data, setData] = useState([])
+    const [id, setId] = useState()
     const navigate = useNavigate()
     useEffect(() => {
         User.all()
@@ -17,10 +19,21 @@ export default function Table() {
     }, [])
     const toProfile = (e, id) => {
         const className = e.target.className
-        if(className === "button" || className === "fa-solid fa-edit" || className === "img"){
+        if (className === "button" || className === "fa-solid fa-edit" || className === "fa-solid fa-trash" || className === "img") {
 
-        }else{
+        } else {
             navigate(`/profile/${id}`)
+        }
+    }
+
+    const removeItem = async (id) => {
+        try {
+            await Auth.removeStudent(id)
+            const filtered = data.filter(c => c.id !== id)
+            setData(filtered)
+            setId('')
+        } catch (error) {
+
         }
     }
 
@@ -69,10 +82,32 @@ export default function Table() {
                                     </div>
                                 </button>
                             </div>
+                            <div className="btn">
+                                <button className='button' onClick={() => setId(item.id)}>
+                                    <div className="img">
+                                        <i className='fa-solid fa-trash'></i>
+                                    </div>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
+            {id ? <>
+                <div className="modal-danger">
+                    <div className="modal-header">
+                        <h5>Are you sure?!</h5>
+                    </div>
+                    <div className="modal-body">
+                        <div className="btn-danger">
+                            <button onClick={() => removeItem(id)}>Delete</button>
+                        </div>
+                        <div className="btn-success">
+                            <button onClick={() => setId()}>No, thanks</button>
+                        </div>
+                    </div>
+                </div>
+            </> : null}
         </div>
     )
 }
