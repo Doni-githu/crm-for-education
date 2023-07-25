@@ -95,9 +95,6 @@ export default function LogIn() {
                                 <option value="DR">Direktor O'rinbosari</option>
                                 <option value="DR">Director</option>
                             </select>
-                            <div className="icon-container">
-                                <i className='fa-solid fa-caret-down'></i>
-                            </div>
                         </div>
                         <button onClick={onSubmitForm} className='btn'>
                             <p>Login</p>
