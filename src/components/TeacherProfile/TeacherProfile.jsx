@@ -16,6 +16,7 @@ function TeacherProfile() {
     const [pays, setPays] = useState([])
     const [slug, setSlug] = useState('')
     const [groups, setGroups] = useState([])
+    const { state } = useContext(context)
     function findAndUpdate(slug) {
         localStorage.setItem('any', slug)
         setSlug(slug)
@@ -47,7 +48,9 @@ function TeacherProfile() {
 
         Group.all()
             .then((res) => {
-                setGroups(res.data.filter(c => c.teacher.id === parseInt(params.id)))
+                const filered = res.data.filter(c => c.teacher.id === parseInt(params.id))
+                console.log(res.data)
+                setGroups(filered)
             })
         Payment.all()
             .then((res3) => {
@@ -80,16 +83,18 @@ function TeacherProfile() {
                 <div className="teacher-container attendance-container">
                     <div className="teacher-title attendance-title">
                         <p className='title'>Teacher {mentor.name}</p>
-                        <div className="btn-contain">
-                            <div className="btn">
-                                <button onClick={() => navigate(`/edit/teacher/${mentor.id}`)}>
-                                    <div className="img">
-                                        <i className='fa-solid fa-edit'></i>
-                                    </div>
-                                    <span>Edit teacher</span>
-                                </button>
+                        {state.role === "DR" || state.role === "AD" ? <>
+                            <div className="btn-contain">
+                                <div className="btn">
+                                    <button onClick={() => navigate(`/edit/teacher/${mentor.id}`)}>
+                                        <div className="img">
+                                            <i className='fa-solid fa-edit'></i>
+                                        </div>
+                                        <span>Edit teacher</span>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </> : null}
                     </div>
                     <div className="context">
                         <div className="profile-box">

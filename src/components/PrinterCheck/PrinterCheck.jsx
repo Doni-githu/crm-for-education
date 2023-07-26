@@ -4,6 +4,9 @@ export default function PrinterCheck({ params }) {
     const year = new Date().getFullYear()
     const day = new Date().getDay()
     const month = new Date().getMonth()
+    if (!params) {
+        return null
+    }
     return (
         <div className='payment-right'>
             <div className="payment-container">
@@ -16,14 +19,14 @@ export default function PrinterCheck({ params }) {
                         <p className='d50'>{month < 10 ? `0${month}` : month}</p>
                         <p className='d30'><span>&#8810;</span>{year}<span>&#8811;</span></p>
                     </div>
-                    <p className='payment-name-text'>F.I.O {params.students.find(c => c.id === parseInt(params.name)).name} {params.students.find(c => c.id === parseInt(params.name)).surname}</p>
+                    <p className='payment-name-text'>F.I.O {params.students ? params.students.find(c => c.id === parseInt(params.name)).name : ''} {params.students ? params.students.find(c => c.id === parseInt(params.name)).surname : ""}</p>
                 </div>
                 <div className='payment-body'>
                     <div className='payment-header-box'>
-                        <p>Gruppa Nomi</p>
+                        <p>Group name</p>
                     </div>
                     <div className='payment-header-box'>
-                        <p>Miqdori</p>
+                        <p>Price</p>
                     </div>
                     <div className='payment-body-box'>
 
@@ -32,7 +35,7 @@ export default function PrinterCheck({ params }) {
 
                     </div>
                     <div className='payment-body-box'>
-                        <p>{params.groups.find(c => c.id === parseInt(params.group)).name}</p>
+                        <p>{params.groups ? params.groups.find(c => c.id === parseInt(params.group)).name : ''}</p>
                     </div>
                     <div className='payment-body-box'>
                         <p>{params.price}</p>
@@ -44,7 +47,7 @@ export default function PrinterCheck({ params }) {
 
                     </div>
                     <div className='payment-body-box'>
-                        <p>{params.admins.find(c => c.id === parseInt(params.admin)).name} {params.admins.find(c => c.id === parseInt(params.admin)).surname}</p>
+                        <p>{params.admins ? params.admins.find(c => c.id === parseInt(params.admin)).name : ''} {params.admins ? params.admins.find(c => c.id === parseInt(params.admin)).surname : ''}</p>
                     </div>
                     <div className='payment-body-box'>
                         {params.untilDay}
@@ -58,7 +61,7 @@ export default function PrinterCheck({ params }) {
                         flexDirection: 'column',
                         gap: '5px'
                     }}>
-                        <p className='payment-name-text'>F.I.O {params.mentors.find((c) => c.id === parseInt(params.mentor)).name} {params.mentors.find((c) => c.id === parseInt(params.mentor)).surname}</p>
+                        <p className='payment-name-text'>F.I.O {params.mentors ? params.mentors.find((c) => c.id === parseInt(params.mentor)).name : ''} {params.mentors ? params.mentors.find((c) => c.id === parseInt(params.mentor)).surname : ''}</p>
 
                     </div>
                 </div>

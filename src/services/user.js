@@ -8,9 +8,6 @@ const Auth = {
     getUser(token){
         return axios.get(`/accounts/user/${token}`)
     },
-    getUseById(id, role){
-        return axios.get(`/account/${id}/${role}`)
-    },
     all(){
         return axios.get('/student/')
     },

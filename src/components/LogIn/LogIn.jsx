@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom"
 export default function LogIn() {
     const [username, setUserName] = useState('')
     const [password, setPassword] = useState('')
-    const [role, setRole] = useState("ST")
+    const [role, setRole] = useState("AD")
     const [error, setError] = useState('')
     const { dispatch, state } = useContext(context)
     const navigate = useNavigate()
@@ -17,10 +17,6 @@ export default function LogIn() {
         if (localStorage.getItem('role') === 'DR' || localStorage.getItem('role') === 'DIRECTOR' || localStorage.getItem('role') === 'AD') {
             navigate('/groups')
         }
-        if (localStorage.getItem('role') === 'ST' || localStorage.getItem('role') === 'STUDENT') {
-            navigate(`/profile/${state.user.id}`)
-        }
-
         if (localStorage.getItem('role') === 'TR' || localStorage.getItem('role') === 'TEACHER') {
             navigate(`/teacher/${state.user.id}`)
         }
@@ -46,10 +42,6 @@ export default function LogIn() {
                 }
                 if (payload.role === 'DR' || payload.role === 'DIRECTOR' || payload.role === 'AD') {
                     navigate('/groups')
-                    dispatch({ type: 'user/login', payload })
-                }
-                if (payload.role === 'ST' || payload.role === 'STUDENT') {
-                    navigate(`/profile/${res.data.user.id}`)
                     dispatch({ type: 'user/login', payload })
                 }
 
@@ -89,7 +81,6 @@ export default function LogIn() {
                     <div className="btn">
                         <div className="select-container">
                             <select onChange={(e) => setRole(e.target.value)}>
-                                <option value="ST">Student</option>
                                 <option value="AD">Administrator</option>
                                 <option value="TR">O'qituvchi</option>
                                 <option value="DR">Direktor O'rinbosari</option>

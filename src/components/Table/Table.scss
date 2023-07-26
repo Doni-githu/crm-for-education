@@ -29,6 +29,7 @@
         .table-room {
             width: 97%;
             display: grid;
+            position: relative;
             grid-template-columns: repeat(5, auto);
 
             .absolute {
@@ -37,7 +38,7 @@
                 top: 25%;
                 transition: all 0.3s;
                 display: flex;
-                gap: 5px;
+                gap: 20px;
 
 
                 .btn button {

@@ -67,11 +67,9 @@ export default function AddStudent() {
     const data = {
       name,
       surname,
-      username,
       technologies_id: ids,
       teachers_id: mentors_id,
       profession_id: professionsId,
-      password,
       phone: parseInt(phone.replace('+', '')),
       davomat: [],
     }
@@ -113,13 +111,10 @@ export default function AddStudent() {
           <Input state={name} setState={setName} placeholder={'Ism kiriting'} />
           <Input state={surname} setState={setSurname} placeholder={'Familiya kiriting'} />
         </div>
-        <div className="form-block">
-          <Input state={username} setState={setUsername} placeholder={'User name kiriting'} />
-          <Input type="password" state={password} setState={setPassword} placeholder={'Parol kiriting'} />
-        </div>
-        <div className="form-grid">
+        <div className="form-grid change2">
           <Input type="tel" state={phone} setState={setPhone} placeholder={'Telefon raqamni kiriting'} />
           <div className="select-container">
+            <label>Teacher: </label>
             <select>
               {mentors.length !== 0 ? mentors?.map(item => (
                 <option key={item.id} value={item.id}>{item.name} {item.surname}</option>
@@ -132,6 +127,7 @@ export default function AddStudent() {
                 <option key={item.id} value={item.id}>{item.name}</option>
               )) : null}
             </select>
+            <label>Bir nechtasini tanlash uchun Mac-dagi "Command" yoki "Control" ni ushlab turing.</label>
           </div>
         </div>
         <div className="btn-container">

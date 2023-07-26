@@ -62,12 +62,15 @@
 
             }
         }
-
+        .change2{
+            grid-template-columns: repeat(3, 30%);
+            gap: 20px;
+        }
         .select-container {
             display: flex;
-            justify-content: center;
-            align-items: center;
-        
+            flex-direction: column;
+            justify-content: flex-start;
+
             select {
                 padding: 7px 12px;
                 border: none;

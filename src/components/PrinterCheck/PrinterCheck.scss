@@ -1,5 +1,5 @@
 .payment-right {
-    width: 35%;
+    width: 600px;
     margin: 0 auto;
     border: 2px solid #212529;
     border-radius: 5px;
@@ -11,6 +11,7 @@
         border-radius: 5px;
         display: flex;
         margin-top: 0;
+        margin: 0;
         height: 100%;
         flex-direction: column;
         align-items: baseline !important;
@@ -28,8 +29,9 @@
         .payment-name {
             padding: 28.5px 10px;
             width: 100%;
+            margin: 0;
             border: 1px solid #212529;
-            
+
             .payment-name-text {
                 border-bottom: 1px solid #212529;
                 padding: 5px 10px;
@@ -41,8 +43,8 @@
                 width: 100%;
                 padding-bottom: 12px;
                 gap: 5px;
+
                 .d50 {
-                    padding: 5px 10px;
                     border-bottom: 1px solid #212529;
                     width: 80%;
                     display: flex;
@@ -54,6 +56,7 @@
                     justify-content: space-between;
                     border-bottom: 1px solid #212529;
                     width: 20%;
+                    
                 }
             }
         }
@@ -62,6 +65,8 @@
             width: 100%;
             display: grid;
             height: 100%;
+            margin: 0;
+            gap: 0;
             grid-template-columns: 50% 50%;
 
             .payment-body-box {
@@ -69,26 +74,27 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 50px;
+                height: 52px;
                 border: 1px solid #212529;
             }
 
-            .payment-header-box{
+            .payment-header-box {
                 width: 100%;
                 display: flex;
                 background-color: #eff6ec;
                 justify-content: center;
                 align-items: center;
                 height: 50px;
-                border: 1px solid #212529;    
-                p{
+                border: 1px solid #212529;
+
+                p {
                     font-weight: 700;
                     font-size: 20px;
                 }
             }
         }
 
-        .payment-footer{
+        .payment-footer {
             width: 100%;
         }
 

@@ -124,26 +124,38 @@ export default function AddGroup() {
           <Input type={"time"} label={'When start'} state={whenStart} setState={setWhenStart} />
         </div>
         <div className="form-grid change">
-          <select onChange={(e) => changeHandler(e.target.selectedOptions, "tech")} multiple>
-            {technologies.length !== 0 ? technologies.map(item => (
-              <option value={item.id} key={item.id}>{item.name}</option>
-            )) : null}
-          </select>
-          <select onChange={(e) => setMentor(Number(e.target.value))}>
-            {mentors.length !== 0 ? mentors.map(item => (
-              <option value={item.id} key={item.id}>{item.name} {item.surname}</option>
-            )) : null}
-          </select>
-          <select onChange={(e) => changeHandler(e.target.selectedOptions, "student")} multiple>
-            {students.length !== 0 ? students.map(item => (
-              <option value={item.id} key={item.id}>{item.name} {item.surname}</option>
-            )) : null}
-          </select>
-          <select onChange={(e) => changeHandler(e.target.selectedOptions, "week")} multiple>
-            {weekDays.length !== 0 ? weekDays.map(item => (
-              <option value={item.id} key={item.id}>{item.name}</option>
-            )) : null}
-          </select>
+          <div className="select-contaniner change2 change3">
+            <label>Technologiyalar: </label>
+            <select onChange={(e) => changeHandler(e.target.selectedOptions, "tech")} multiple>
+              {technologies.length !== 0 ? technologies.map(item => (
+                <option value={item.id} key={item.id}>{item.name}</option>
+              )) : null}
+            </select>
+          </div>
+          <div className="select-container change2">
+            <label>Mentor: </label>
+            <select onChange={(e) => setMentor(Number(e.target.value))}>
+              {mentors.length !== 0 ? mentors.map(item => (
+                <option value={item.id} key={item.id}>{item.name} {item.surname}</option>
+              )) : null}
+            </select>
+          </div>
+          <div className="select-container change2">
+            <label>Students: </label>
+            <select onChange={(e) => changeHandler(e.target.selectedOptions, "student")} multiple>
+              {students.length !== 0 ? students.map(item => (
+                <option value={item.id} key={item.id}>{item.name} {item.surname}</option>
+              )) : null}
+            </select>
+          </div>
+          <div className="select-container change2">
+            <label>Hafta kunlari:</label>
+            <select onChange={(e) => changeHandler(e.target.selectedOptions, "week")} multiple>
+              {weekDays.length !== 0 ? weekDays.map(item => (
+                <option value={item.id} key={item.id}>{item.name}</option>
+              )) : null}
+            </select>
+          </div>
         </div>
         <div className="btn-container">
           <div className="btn">

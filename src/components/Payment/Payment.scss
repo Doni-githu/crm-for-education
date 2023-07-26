@@ -1,10 +1,14 @@
+.container-2{
+    gap: 50px;
+}
+
+
 .payment-container {
     display: flex;
     justify-content: center;
     height: 75%;
     align-items: center;
     margin-top: 25px;
-
     .payment-left {
         width: 50%;
 
@@ -93,4 +97,120 @@
     }
 
 
+}
+
+.modal-success {
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    .modal-container {
+        min-width: 300px;
+
+        .modal-header {
+            background-color: #ffff;
+            border: 1px solid rgba(0, 0, 0, 0.175);
+            padding: 20px;
+            color: #000;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+
+            h5 {
+                font-size: 1.25rem;
+                font-weight: 500;
+            }
+        }
+
+        .modal-body {
+            padding: 20px;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.175);
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .file {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .input-file {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .input-file-btn {
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+                outline: none;
+                text-decoration: none;
+                font-size: 14px;
+                vertical-align: middle;
+                color: rgb(255 255 255);
+                text-align: center;
+                border-radius: 4px;
+                background-color: #419152;
+                line-height: 22px;
+                height: 40px;
+                padding: 10px 20px;
+                box-sizing: border-box;
+                border: none;
+                margin: 0;
+                transition: background-color 0.2s;
+            }
+
+            .input-file-text {
+                padding: 0 10px;
+                line-height: 40px;
+                display: inline-block;
+            }
+
+            .input-file input[type=file] {
+                position: absolute;
+                z-index: -1;
+                opacity: 0;
+                display: block;
+                width: 0;
+                height: 0;
+            }
+
+            /* Focus */
+            .input-file input[type=file]:focus+.input-file-btn {
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+            }
+
+            /* Hover/active */
+            .input-file:hover .input-file-btn {
+                background-color: #59be6e;
+            }
+
+            .input-file:active .input-file-btn {
+                background-color: #2E703A;
+            }
+
+            /* Disabled */
+            .input-file input[type=file]:disabled+.input-file-btn {
+                background-color: #eee;
+            }
+
+            .success button {
+                font-weight: 400;
+                color: #fff;
+                background-color: #198754 !important;
+                border-radius: 8px;
+            }
+        }
+    }
 }

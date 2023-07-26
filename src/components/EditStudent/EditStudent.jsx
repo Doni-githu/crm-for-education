@@ -76,29 +76,25 @@ export default function EditStudent({ id }) {
     }, [])
 
     const editMain = () => {
-        if (!name || !surname || !password || !username || technologies.filter(c => c.active).length === 0 || professions.filter(c => c.active).length === 0 || teachers.filter(c => c.active).length === 0 || !phone) {
+        if (!name || !surname || professions.filter(c => c.active).length === 0 || teachers.filter(c => c.active).length === 0 || !phone) {
             setError('All fields are required')
             return
         }
 
         const professions_id = professions.filter((item) => item.active).map((item) => Number(item.id))
         const mentors_id = teachers.filter((item) => item.active).map((item) => Number(item.id))
-        const technologies_id = technologies.filter(c => c.active).map((item) => Number(item.id))
 
         const data = {
             name,
             surname,
-            username,
-            technologies_id,
             teachers_id: mentors_id,
             profession_id: professions_id,
-            password,
             phone: parseInt(phone.replace('+', '')),
-            davomat: user.davomat
+            davomat: user.davomat,
         }
         Auth.edit(id, data)
             .then(res => {
-                navigate('/salary')
+                navigate(`/profile/${id}`)
             })
     }
     const changeVisibled = (data, id, type) => {
@@ -133,28 +129,14 @@ export default function EditStudent({ id }) {
                 <div className="form-block">
                     <Input state={name} setState={setName} placeholder={'Ism kiriting'} />
                     <Input state={surname} setState={setSurname} placeholder={'Familiya kiriting'} />
-                </div>
-                <div className="form-block">
-                    <Input state={username} setState={setUsername} placeholder={'User name kiriting'} />
-                    <Input type="password" state={password} setState={setPassword} placeholder={'Parol kiriting'} />
-                </div>
-                <div className="form-block one">
                     <Input type="tel" state={phone} setState={setPhone} placeholder={'Telefon raqamni kiriting'} />
+                </div>
+                <div className="form-grid">
                     <div className="hover-pagination-form">
                         <p className="label">Professions: </p>
                         <ul className="pagination-hover">
                             {professions ? professions.map(item => (
                                 <li key={item.id} onClick={() => changeVisibled(professions, item.id, 'pro')} className={item.active ? 'active' : ''}>{item.name}</li>
-                            )) : null}
-                        </ul>
-                    </div>
-                </div>
-                <div className="form-grid">
-                    <div className="hover-pagination-form">
-                        <p className="label">Technologies: </p>
-                        <ul className="pagination-hover">
-                            {technologies.length !== 0   ? technologies.map(item => (
-                                <li key={item.id} onClick={() => changeVisibled(technologies, item.id, 'tech')} className={item.active ? 'active' : ''}>{item.name}</li>
                             )) : null}
                         </ul>
                     </div>

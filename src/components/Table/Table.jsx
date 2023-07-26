@@ -22,6 +22,7 @@ export default function Table() {
         if (className === "button" || className === "fa-solid fa-edit" || className === "fa-solid fa-trash" || className === "img") {
 
         } else {
+            console.log(id);
             navigate(`/profile/${id}`)
         }
     }
@@ -45,10 +46,7 @@ export default function Table() {
                 </div>
                 <div className="col-header">
                     <p>Name</p>
-                </div>
-                <div className="col-header">
-                    <p>Surname</p>
-                </div>
+                </div>  
                 <div className="col-header">
                     <p>Username</p>
                 </div>
@@ -67,9 +65,6 @@ export default function Table() {
                         </div>
                         <div className='col-body'>
                             <p>{item.surname}</p>
-                        </div>
-                        <div className='col-body'>
-                            <p>{item.username}</p>
                         </div>
                         <div className='col-body'>
                             <p>+{item.phone}</p>

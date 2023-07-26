@@ -35,7 +35,7 @@ function Davomat() {
                     }
                     const data = { ...res.data, davomat: data2 }
                     dispatch({ type: 'attendance', payload: data })
-                }else{
+                } else {
                     navigate(-1)
                 }
             }).catch((err) => {
@@ -70,11 +70,10 @@ function Davomat() {
         navigate(`/edit/group/${e}`)
     }
     const toProfile = (id) => {
-        Auth.getUseById(id, 'ST')
+        Auth.getOne(id)
             .then((res) => {
                 dispatch({ type: 'studentProfile', payload: res.data })
                 dispatch({ type: 'startLook', paylod: 'ST' })
-                localStorage.setItem("lookingST", true)
                 navigate(`/profile/${id}`)
             }).catch((err) => {
                 console.log(err)

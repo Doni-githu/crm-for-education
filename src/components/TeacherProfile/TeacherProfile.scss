@@ -133,7 +133,10 @@
 
                     .groups {
                         display: flex;
-                        width: 40vw;
+                        width: 40vw;    
+                        flex-wrap: wrap;
+                        height: 58vh;
+                        overflow-x: hidden;
                         gap: 58px;
 
                         .group {
@@ -145,6 +148,7 @@
                             flex-direction: column;
                             justify-content: left;
                             width: 265px;
+                            height: 200px;
 
                             img {
                                 width: 44px;

@@ -34,7 +34,7 @@ export default function AddTeacher() {
       }
     }
 
-        
+
 
 
 
@@ -85,9 +85,10 @@ export default function AddTeacher() {
           <Input state={username} setState={setUsername} placeholder={'User name kiriting'} />
           <Input type="password" state={password} setState={setPassword} placeholder={'Parol kiriting'} />
         </div>
-        <div className="form-grid second">
+        <div className="form-grid change2">
           <Input type="number" state={salary} setState={setSalary} placeholder={"O'qituvchi maoshini kiriting"} />
           <div className="select-container">
+            <label>Profession: </label>
             <select multiple onChange={(e) => changeProfession(e.target.selectedOptions)}>
               {professions.length !== 0 ? professions?.map(item => (
                 <option key={item.id} value={item.id}>{item.name}</option>
