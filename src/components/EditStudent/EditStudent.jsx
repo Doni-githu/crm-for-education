@@ -30,7 +30,6 @@ export default function EditStudent({ id }) {
                 setPassword(res.data.password)
                 setPhone(`+${res.data.phone}`)
                 const filteredProfessions = res.data.profession.map(c => c.id)
-                const filteredTechnologies = res.data.technologies.map(c => c.id)
                 const filteredTeachers = res.data.teachers.map(c => c.id)
 
                 Mentor.all()
@@ -45,19 +44,6 @@ export default function EditStudent({ id }) {
                             return item
                         })
                         setTeachers(newRes)
-                    })
-                Technology.all()
-                    .then(res => {
-                        const newRes = res.data.map(item => {
-                            if (filteredTechnologies.includes(item.id)) {
-                                return {
-                                    ...item,
-                                    active: true
-                                }
-                            }
-                            return item
-                        })
-                        setTechnologies(newRes)
                     })
                 Profession.all()
                     .then(res => {

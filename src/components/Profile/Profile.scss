@@ -1,6 +1,8 @@
 .profile-container {
     margin-top: 54px;
     padding-bottom: 7px;
+    height: 86%;
+    position: relative;
 
     .title {
         font-family: 'Nunito Sans';
@@ -16,10 +18,12 @@
         display: flex;
         gap: 33px;
         margin-top: 7px;
+        height: 93%;
 
         .profile-box {
             border-radius: 12px;
             width: 20%;
+            max-height: 100%;
             background-color: #fff;
             padding: 0 25px;
 

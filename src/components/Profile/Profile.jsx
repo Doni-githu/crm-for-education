@@ -78,7 +78,7 @@ function Profile() {
         }
     }
 
-
+    const double = new Array(2).fill(0).map((c, i) => c + i)
 
     return (
         <Layout>
@@ -86,60 +86,35 @@ function Profile() {
                 <>
                     <div ref={printRef} className='check'>
                         <div className="check-container">
-                            <div className="double">
-                                <div className="check-header">
-                                    <div className='header' style={{ textAlign: 'center' }}>
-                                        <p>Check</p>
+                            {double.map((item) => (
+                                <div key={item} className="double">
+                                    <div className="check-header">
+                                        <div className='header' style={{ textAlign: 'center' }}>
+                                            <p>Check</p>
+                                        </div>
+                                    </div>
+                                    <div className="check-body">
+                                        <div className="body">
+                                            <p>Sana - {params3.when ? params3.when.split('T')[0] : ''}</p>
+                                        </div>
+                                        <div className="body">
+                                            <p>Group - {params3.group ? params3.group.name : ''}</p>
+                                        </div>
+                                        <div className="body">
+                                            <p>Price - {params3.quantity ? params3.quantity + " - Oy " + params3.month : ''}</p>
+                                        </div>
+                                        <div className="body">
+                                            <p>Qabul qiluvchi - {params3.administrator ? params3.administrator.name : ''}</p>
+                                        </div>
+                                        <div className="body">
+                                            <p>Ustoz - {params3.teacher ? params3.teacher.name + " " + params3.teacher.surname : ''}</p>
+                                        </div>
+                                        <div className="body">
+                                            <p>Student - {params3.student ? params3.student.name + " " + params3.student.surname : ''}</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="check-body">
-                                    <div className='body'>
-                                        <p>Sana - {params3.when ? params3.when.split('T')[0] : ''}</p>
-                                    </div>
-                                    <div className="body">
-                                        <p>Group - {params3.group ? params3.group.name : ''}</p>
-                                    </div>
-                                    <div className="body">
-                                        <p>Price - {params3.quantity ? params3.quantity : ''}</p>
-                                    </div>
-                                    <div className="body">
-                                        <p>Qabul qiluvchi - {params3.administrator ? params3.administrator.name : ''}</p>
-                                    </div>
-                                    <div className="body">
-                                        <p>Ustoz - {params3.teacher ? params3.teacher.name : ''}</p>
-                                    </div>
-                                    <div className="body">
-                                        <p>Student - {params3.student ? params3.student.name : ''}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="double">
-                                <div className="check-header">
-                                    <div className='header' style={{ textAlign: 'center' }}>
-                                        <p>Check</p>
-                                    </div>
-                                </div>
-                                <div className="check-body">
-                                    <div className="body">
-                                        <p>Sana - {params3.when ? params3.when.split('T')[0] : ''}</p>
-                                    </div>
-                                    <div className="body">
-                                        <p>Group - {params3.group ? params3.group.name : ''}</p>
-                                    </div>
-                                    <div className="body">
-                                        <p>Price - {params3.quantity ? params3.quantity : ''}</p>
-                                    </div>
-                                    <div className="body">
-                                        <p>Qabul qiluvchi - {params3.administrator ? params3.administrator.name : ''}</p>
-                                    </div>
-                                    <div className="body">
-                                        <p>Ustoz - {params3.teacher ? params3.teacher.name : ''}</p>
-                                    </div>
-                                    <div className="body">
-                                        <p>Student - {params3.student ? params3.student.name : ''}</p>
-                                    </div>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                     <div ref={someRef} onClick={close} className={`modal-success ${isSee ? 'modal-active' : ''}`}>

@@ -46,7 +46,7 @@ export default function AddStudent() {
   const navigate = useNavigate()
 
   const addStudentMain = () => {
-    if (!name || !surname || !password || !username || technology.length === 0 || professions.length === 0 || mentors.length === 0 || !phone) {
+    if (!name || !surname || professions.length === 0 || mentors.length === 0 || !phone) {
       setError('All fields are required')
       return
     }

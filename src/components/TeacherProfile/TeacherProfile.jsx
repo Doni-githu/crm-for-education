@@ -102,11 +102,6 @@ function TeacherProfile() {
                                 <div className="img">
                                     <p>{mentor.name ? mentor.name.slice(0, 1) : ''}</p>
                                 </div>
-                                <div className='btn'>
-                                    <button>
-                                        <img src="/img/edit.png" alt="" />
-                                    </button>
-                                </div>
                             </div>
                             <div className="header-body">
                                 <div className="header-title">
@@ -162,12 +157,12 @@ function TeacherProfile() {
                                                     {pays.map((item, idx) => (
                                                         <tr key={item.id * 2}>
                                                             <td>
-                                                                <div className="check">
+                                                                <div className="check-w">
                                                                     <label>
                                                                         <input type="checkbox" className='hid' />
                                                                         <span className='fake'></span>
                                                                     </label>
-                                                                    <p>{idx + 1}</p>
+                                                                    <p>{item.id}</p>
                                                                 </div>
                                                             </td>
                                                             <td>
