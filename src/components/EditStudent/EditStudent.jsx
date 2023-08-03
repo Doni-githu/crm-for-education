@@ -29,35 +29,37 @@ export default function EditStudent({ id }) {
                 setUsername(res.data.username)
                 setPassword(res.data.password)
                 setPhone(`+${res.data.phone}`)
-                const filteredProfessions = res.data.profession.map(c => c.id)
-                const filteredTeachers = res.data.teachers.map(c => c.id)
+                if (res.data.profession.length && res.data.teachers.length) {
+                    const filteredProfessions = res.data.profession.map(c => c.id)
+                    const filteredTeachers = res.data.teachers.map(c => c.id)
 
-                Mentor.all()
-                    .then(res => {
-                        const newRes = res.data.map(item => {
-                            if (filteredTeachers.includes(item.id)) {
-                                return {
-                                    ...item,
-                                    active: true
+                    Mentor.all()
+                        .then(res => {
+                            const newRes = res.data.map(item => {
+                                if (filteredTeachers.includes(item.id)) {
+                                    return {
+                                        ...item,
+                                        active: true
+                                    }
                                 }
-                            }
-                            return item
+                                return item
+                            })
+                            setTeachers(newRes)
                         })
-                        setTeachers(newRes)
-                    })
-                Profession.all()
-                    .then(res => {
-                        const newRes = res.data.map(item => {
-                            if (filteredProfessions.includes(item.id)) {
-                                return {
-                                    ...item,
-                                    active: true
+                    Profession.all()
+                        .then(res => {
+                            const newRes = res.data.map(item => {
+                                if (filteredProfessions.includes(item.id)) {
+                                    return {
+                                        ...item,
+                                        active: true
+                                    }
                                 }
-                            }
-                            return item
+                                return item
+                            })
+                            setProfessions(newRes)
                         })
-                        setProfessions(newRes)
-                    })
+                }
             })
     }, [])
 

@@ -34,20 +34,22 @@ export default function LogIn() {
         dispatch({ type: 'startlogin' })
         Auth.login(user)
             .then(res => {
-                localStorage.setItem("token", res.data.token)
-                localStorage.setItem('role', res.data.role)
-                const payload = {
-                    user: res.data.user,
-                    role: res.data.role
-                }
-                if (payload.role === 'DR' || payload.role === 'DIRECTOR' || payload.role === 'AD') {
-                    navigate('/groups')
-                    dispatch({ type: 'user/login', payload })
-                }
+                if (res) {
+                    localStorage.setItem("token", res.data.token)
+                    localStorage.setItem('role', res.data.role)
+                    const payload = {
+                        user: res.data.user,
+                        role: res.data.role
+                    }
+                    if (payload.role === 'DR' || payload.role === 'DIRECTOR' || payload.role === 'AD') {
+                        navigate('/groups')
+                        dispatch({ type: 'user/login', payload })
+                    }
 
-                if (payload.role === 'TR' || payload.role === 'TEACHER') {
-                    navigate(`/teacher/${res.data.user.id}`)
-                    dispatch({ type: 'user/login', payload })
+                    if (payload.role === 'TR' || payload.role === 'TEACHER') {
+                        navigate(`/teacher/${res.data.user.id}`)
+                        dispatch({ type: 'user/login', payload })
+                    }
                 }
                 setError('')
             }).catch((err) => {
