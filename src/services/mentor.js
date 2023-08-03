@@ -12,6 +12,9 @@ const Mentor = {
     },
     edit(id, data){
         return axios.put(`/teacher/${id}`, data)
+    },
+    delete(id){
+        return axios.delete(`/teacher/${id}`)
     }
 }
 

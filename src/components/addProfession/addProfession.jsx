@@ -33,10 +33,11 @@ export default function AddProfession() {
             })
     }, [])
 
-    const removeInProfession = (id) => {
+    const removeInProfession = (id, event) => {
         if (!id) {
             return
         }
+        console.log('is this shit work')
         Profession.delete(id)
             .then(() => {
                 const newPro = professions.filter(c => c.id !== parseInt(id))

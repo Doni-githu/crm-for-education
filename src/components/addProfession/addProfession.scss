@@ -77,6 +77,8 @@
 
         .trash button {
             padding: 5px;
+            cursor: pointer;
+            user-select: none;
             border: none;
             color: #303233;
         }

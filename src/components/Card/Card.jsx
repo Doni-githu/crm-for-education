@@ -1,17 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Card.scss'
 import { useNavigate } from 'react-router-dom'
 import Groups from "../../services/groups"
 import User from "../../services/user"
+import { context } from '../../provider/provider'
 
-function Card({ item }) {
+function Card({ item, setDelete, setId }) {
     const [students, setStudents] = useState([])
     const [groups, setGroups] = useState(0)
+    const { state } = useContext(context)
     const navigate = useNavigate()
-
     const toProfile = id => {
         navigate(`/teacher/${id}`)
     }
+
+    const isWantToDelete = () => {
+        setId(item.id)
+        setDelete(true)
+    }
+
+
+
+
 
     useEffect(() => {
         Groups.all()
@@ -25,7 +35,7 @@ function Card({ item }) {
                     const element = res.data[i];
                     for (let j = 0; j < element.teachers.length; j++) {
                         const element2 = element.teachers[j];
-                        if(element2.id === item.id){
+                        if (element2.id === item.id) {
                             setStudents([...students, element])
                         }
                     }
@@ -61,6 +71,15 @@ function Card({ item }) {
                     <p>{groups > 1 ? 'Guruhlari' : 'Guruh'}</p>
                 </div>
             </div>
+            {state.role === "AD" ? <>
+                <div className="card-footer">
+                    <div className="btn danger">
+                        <button onClick={isWantToDelete}>
+                            <i className='fa-solid fa-trash'></i>
+                        </button>
+                    </div>
+                </div>
+            </> : null}
         </div>
     )
 }

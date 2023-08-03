@@ -72,9 +72,11 @@ function Payment() {
                         }
                         Auth.all()
                             .then(res4 => {
-                                setName(res4.data[0].id)
-                                setStudents(res4.data)
-                                setMentor(res4.data[0].teachers[0].id)
+                                if (res4.data.length > 0) {
+                                    setName(res4.data[0].id)
+                                    setStudents(res4.data)
+                                    setMentor(res4.data[0]?.teachers[0]?.id)
+                                }
                             }).finally(() => {
                                 setIsLoading(false)
                             })

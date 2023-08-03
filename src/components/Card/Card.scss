@@ -88,4 +88,14 @@
             }
         }
     }
+
+    .card-footer{
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        .danger button{
+            background-color: #d90429;
+        }
+    }
 }

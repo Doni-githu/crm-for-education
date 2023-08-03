@@ -9,6 +9,17 @@ import { context } from "../../provider/provider";
 export default function Groups() {
     const { state } = useContext(context)
     const [data, setData] = useState([])
+    const [id, setId] = useState(null)
+    const [isDelete, setDelete] = useState(false)
+
+    const removeItem = async (id) => {
+        await Teacher.delete(id)
+        const newData = data.filter(c => c.id !== id)
+        setData(newData)
+        setDelete(false)
+        setId('')
+    }
+
     useEffect(() => {
         Teacher.all()
             .then(res => {
@@ -32,11 +43,29 @@ export default function Groups() {
             </div>
             <div className="groups-container">
                 {data ? data.map((item) => (
-                    <Card item={item} key={item.id} />
+                    <Card setId={setId} setDelete={setDelete} item={item} key={item.id} />
                 )) : <>
                     <Loader />
                 </>}
             </div>
+            {isDelete ? <>
+                <div className="modal-danger">
+                    <div className="modal-header">
+                        <h5>Are you sure?!</h5>
+                    </div>
+                    <div className="modal-body">
+                        <div className="btn-danger">
+                            <button onClick={() => removeItem(id)}>Delete</button>
+                        </div>
+                        <div className="btn-success">
+                            <button onClick={() => {
+                                setDelete(false)
+                                setId()
+                            }}>No, thanks</button>
+                        </div>
+                    </div>
+                </div>
+            </> : null}
         </Layout>
     )
 }
