@@ -7,7 +7,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Group from '../../services/groups'
 import Loader from '../../uiComponents/Loader/Loader'
 import Auth from '../../services/user'
-import moment from 'moment'
 import DavomatReq from '../../services/davomat'
 import DavomatTableItem from '../DavomatTableItem/DavomatTableItem'
 
@@ -16,9 +15,6 @@ function Davomat() {
     const { state, dispatch } = useContext(context)
     const params = useParams()
     const navigate = useNavigate()
-    const dateParse = (date) => {
-        return moment(date).format('DD')
-    }
 
     const attendanceData = (n) => {
         return {
@@ -61,7 +57,6 @@ function Davomat() {
                 console.log(err)
             })
     }, [])
-    let array = new Array(12).fill(0).map((item, idx) => (item + (idx + 1)))
 
     const lookingForStudent = (array, term) => {
         if (term.length === 0) {
@@ -138,6 +133,8 @@ function Davomat() {
     const month = new Date().toJSON().slice(5, 7)
     const completeDate = Date.parse(new Date(users.complete_date))
     const day = Date.parse(new Date(users.begin_date))
+    const dateTime = Math.round((new Date()))
+    const day2 = Math.round((dateTime - day) / 1000 / 60 / 60 / 24)
     let count = 0
     const [list, setList] = useState([])
     const days = Math.round((completeDate - day) / 1000 / 60 / 60 / 24)
@@ -159,9 +156,10 @@ function Davomat() {
     }, [])
     async function getNow() {
         const now = new Date(users.begin_date).toJSON()
-        for (let i = 0; i < users?.students.length; i++) {
-            const element = users?.students[i];
-            while (element?.davomat.length < (days)) {
+        for (let i = 0; i < users.students.length; i++) {
+            const element = users.students[i];
+            let someArray = element.davomat.filter(c => c.group === users.id)
+            while (someArray?.length < day2) {
                 const data = {
                     keldi: 'u',
                     sana: now,
@@ -222,7 +220,7 @@ function Davomat() {
                                         </div>
                                     </th>
                                     {list.map((item, idx) => (
-                                        <th key={idx}>
+                                        <th key={item.count}>
                                             <span className='work_day'>{item.count}</span>
                                         </th>
                                     ))}
@@ -238,7 +236,7 @@ function Davomat() {
                                         </td>
                                         {state.users.davomat.map((item2, idx) => (
                                             item2.student === item.id ? <>
-                                                <td key={idx}>
+                                                <td key={item2.id}>
                                                     <DavomatTableItem change={changeVisiblity} item2={item2} item={item} />
                                                 </td>
                                             </> : null

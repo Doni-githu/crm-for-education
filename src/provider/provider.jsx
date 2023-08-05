@@ -54,12 +54,14 @@ export function reducer(state = initialState, { type, payload }) {
             return { ...state, studentProfile: payload }
         case "startLook":
             return { ...state, lookingRole: payload }
+        case "startReload":
+            return {...state, users: {...state.users, davomat: [...state.users.davomat, payload]}}
         case "updateSome":
-            return {...state, users: {...state.users, students: payload}}
+            return { ...state, users: { ...state.users, students: payload } }
         case "upDataSomeThing":
             const [post, id] = payload
             const students = state.users.students.map(item => {
-                if(item.id === id){
+                if (item.id === id) {
                     return {
                         ...item,
                         davomat: [
