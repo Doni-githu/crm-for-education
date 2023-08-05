@@ -68,8 +68,6 @@
         border-bottom-left-radius: 24px;
         border-bottom-right-radius: 24px;
         background-color: #fff;
-        display: flex;
-        justify-content: flex-end;
 
         .contain {
             width: 100%;
@@ -77,6 +75,7 @@
             padding: 25px 0;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 15px;
 
             .box-information {
@@ -309,6 +308,10 @@
                         border: none;
                         width: 28px;
                         position: relative;
+                        display: flex;
+                        justify-content: center;
+                        background-color: attrs(date-count) !important;
+                        align-items: center;
                         margin: 4px;
                         height: 44px;
                         border-radius: 7px;
@@ -323,11 +326,13 @@
                             left: 0;
                             flex-direction: column;
                             list-style: none;
-                            display: flex;
                             padding: 10px;
                             border-radius: 10px;
-                            transform: scale(0);
                             transition: all 0.5s;
+
+                            .active {
+                                bottom: -500px !important;
+                            }
 
                             li {
                                 width: 100%;
@@ -344,13 +349,10 @@
                         }
                     }
 
-                    .table-button:hover .hover-paginate {
-                        transform: scale(1);
-                        transform-origin: left;
-                    }
 
 
                     .c {
+                        color: #fff;
                         background-color: #15C0E6;
                     }
 

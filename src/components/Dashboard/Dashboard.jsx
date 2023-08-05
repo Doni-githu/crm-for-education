@@ -39,7 +39,7 @@ export default function Dashboard() {
         if (e.target.className.split(" ").reverse()[0] === "danger" || e.target.className === "btn-danger" || e.target.className === "button" || e.target.className === "fa-solid fa-trash") {
 
         } else {
-            
+            // console.log(id)
             navigate(`/attendance/${id}`)
         }
     }

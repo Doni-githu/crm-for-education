@@ -64,25 +64,26 @@ function Payment() {
                     setAdmin(res1.data[0].id)
                     setAdmins(res1.data)
                 }
-                Group.all()
-                    .then((res2) => {
-                        if (res2.data.length > 0) {
-                            setGroup(res2.data[0].id)
-                            setGroups(res2.data)
-                        }
-                        Auth.all()
-                            .then(res4 => {
-                                if (res4.data.length > 0) {
-                                    setName(res4.data[0].id)
-                                    setStudents(res4.data)
-                                    setMentor(res4.data[0]?.teachers[0]?.id)
-                                }
-                            }).finally(() => {
-                                setIsLoading(false)
-                            })
-                    })
+            }).finally(() => {
+                setIsLoading(false)
             })
+        Group.all()
+            .then((res2) => {
+                if (res2.data.length > 0) {
+                    setGroup(res2.data[0].id)
+                    setGroups(res2.data)
+                }
 
+            })
+        Auth.all()
+            .then(res4 => {
+                if (res4.data.length > 0) {
+                    setName(res4.data[0].id)
+                    setStudents(res4.data)
+                    setMentor(res4.data[0]?.teachers[0]?.id)
+                    console.log(res4)
+                }
+            })
     }, [])
 
     useMemo(() => {
@@ -97,7 +98,7 @@ function Payment() {
         <Layout>
             {!isLoading ? <>
                 <div className="payment-container container-2">
-                    {groups.length !== 0 && mentors.length !== 0 && students.length !== 0 && !isLoading ? <>
+                    {groups.length !== 0 && mentors.length !== 0 && students.length !== 0 ? <>
                         <div className="payment-left">
                             <div className='payment-form'>
                                 <Input type={'number'} setState={setPrice} state={price} placeholder={"Price"} label={'Price...'} />

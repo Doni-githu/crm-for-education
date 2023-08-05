@@ -16,7 +16,7 @@ export default function EditHandler() {
     return (
         <Layout>
             {params.what === "group" ? <>
-                <EditGroup id={params.id} />
+                <EditGroup id={parseInt(params.id)} />
             </> :
                 params.what === "student" ? <>
                     <EditStudent id={parseInt(params.id)} />

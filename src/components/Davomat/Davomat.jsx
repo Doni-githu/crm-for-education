@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import Layout from '../../layouts/Layout'
 import './Davomat.scss'
 import { useContext } from 'react'
@@ -7,14 +7,35 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Group from '../../services/groups'
 import Loader from '../../uiComponents/Loader/Loader'
 import Auth from '../../services/user'
+import moment from 'moment'
 import DavomatReq from '../../services/davomat'
+import DavomatTableItem from '../DavomatTableItem/DavomatTableItem'
 
 function Davomat() {
     const [term, setTerm] = useState('')
     const { state, dispatch } = useContext(context)
     const params = useParams()
     const navigate = useNavigate()
+    const dateParse = (date) => {
+        return moment(date).format('DD')
+    }
 
+    const attendanceData = (n) => {
+        return {
+            '01': 31,
+            '02': 28,
+            '03': 31,
+            '04': 30,
+            '05': 31,
+            '06': 30,
+            '07': 31,
+            '08': 31,
+            '09': 30,
+            '10': 31,
+            '11': 30,
+            '12': 31
+        }[n]
+    }
     useEffect(() => {
         if (state.role === 'ST') {
             navigate(`/profile/${state.user.id}`)
@@ -35,8 +56,6 @@ function Davomat() {
                     }
                     const data = { ...res.data, davomat: data2 }
                     dispatch({ type: 'attendance', payload: data })
-                } else {
-                    navigate(-1)
                 }
             }).catch((err) => {
                 console.log(err)
@@ -56,11 +75,11 @@ function Davomat() {
         try {
             const result = {
                 keldi: rol,
-                sana: attendance.sana,
+                sana: new Date().toJSON(),
                 student: attendance.student,
                 group: attendance.group
             }
-            await DavomatReq.getOne(attendance.id, result)
+            await DavomatReq.put(attendance.id, result)
             dispatch({ type: 'updateAttendance', payload: [groupId, studentId, attendance.id, rol] })
         } catch (error) {
             console.log(error)
@@ -93,7 +112,7 @@ function Davomat() {
                     group: users.id
                 }
                 let res = await DavomatReq.create(data)
-                dispatch({ type: 'upDataSomeThing', payload: [res.data, id] });
+                element.davomat.push(res.data)
             }
             date = new Date(users.begin_date)
         }
@@ -101,7 +120,7 @@ function Davomat() {
 
     let max = 0
     if (users.students) {
-        max = users.students[0].davomat.length || 0
+        max = users.students[0]?.davomat.length || 0
         for (let i = 0; i < users.students.length; i++) {
             const element = users.students[i];
             for (let i = 0; i < element.davomat.length; i++) {
@@ -115,32 +134,58 @@ function Davomat() {
             }
         }
     }
-    let count = 0
     let index = 1
-    const list = new Array(max).fill(0).map(() => {
-        count++
-        if (count === 13) {
-            count = 1
+    const month = new Date().toJSON().slice(5, 7)
+    const completeDate = Date.parse(new Date(users.complete_date))
+    const day = Date.parse(new Date(users.begin_date))
+    let count = Math.round(day / 1000 / 60 / 60 / 24) || 0
+    const [list, setList] = useState([])
+    const days = Math.round((completeDate - day) / 1000 / 60 / 60 / 24)
+
+    useEffect(() => {
+        const newArray = new Array(attendanceData(month)).fill(0).map((item, i) => {
+            count++
+
+            if (count === attendanceData(month) + 1) {
+                count = 1
+            }
+
+            return {
+                count,
+                date: i + 1
+            }
+        })
+        setList(newArray)
+    }, [])
+    async function getNow() {
+        const now = new Date(users.begin_date).toJSON()
+        for (let i = 0; i < users?.students.length; i++) {
+            const element = users?.students[i];
+            while (element?.davomat.length < (days)) {
+                const data = {
+                    keldi: 'u',
+                    sana: now,
+                    student: element.id,
+                    group: users.id,
+                }
+                const result = await DavomatReq.create(data)
+                element.davomat.push(result.data)
+            }
         }
-
-        return count
-    })
-
-    const classNameFunc = (i) => {
-        if (i === 0) return ''
-        if (i % 12 === 0) {
-            return `red`
-        }
-
-        return ''
     }
+
+    if (users.students) {
+        getNow()
+    }
+
+
 
     return (
         <Layout>
             {users ? <>
                 <div className='attendance-container'>
                     <div className="attendance-title">
-                        <p className='title'>{users ? users.name : ''}</p>
+                        <p className='title'>Group {users ? users.name : ''}</p>
                         {state.role === "AD" ? <>
                             <div className="btn">
                                 <button onClick={() => toEdit(users.id)}>
@@ -152,7 +197,6 @@ function Davomat() {
                             </div>
                         </> : null}
                     </div>
-
                     <div className="table-container">
                         <table>
                             {/* <div className='arrows'>
@@ -179,42 +223,26 @@ function Davomat() {
                                     </th>
                                     {list.map((item, idx) => (
                                         <th key={idx}>
-                                            <span className='work_day'>{item}</span>
+                                            <span className='work_day'>{item.count}</span>
                                         </th>
                                     ))}
-                                    <th>
-                                        <span>+</span>
-                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {users ? lookingForStudent(users?.students, term)?.map(item => (
+                                {users ? lookingForStudent(users.students, term)?.map(item => (
                                     <tr key={item.id}>
                                         <td id='uuid'>
                                             <div onClick={() => toProfile(item.id)} className="user">
                                                 <span>{item.name} {item.surname}</span>
                                             </div>
                                         </td>
-                                        {item.davomat ? item.davomat.map((item2, index2) => (
-                                            item2.group === users.id ? <>
-                                                <td key={item2.id} className={classNameFunc(index2)} style={{ textAlign: 'center' }}>
-                                                    <button key={item2.id} className={`table-button ${item2.keldi}`}>
-                                                        {state.role === "TR" ? <>
-                                                            <ul className='hover-paginate'>
-                                                                <li onClick={() => changeVisiblity(users.id, item.id, item2, 'g')}>Qatnashmadi</li>
-                                                                <li onClick={() => changeVisiblity(users.id, item.id, item2, 'w')}>Sababli</li>
-                                                                <li onClick={() => changeVisiblity(users.id, item.id, item2, 'c')}>Qatnashdi</li>
-                                                            </ul>
-                                                        </> : null}
-                                                    </button>
+                                        {state.users.davomat.map((item2, idx) => (
+                                            item2.student === item.id ? <>
+                                                <td key={idx}>
+                                                    <DavomatTableItem change={changeVisiblity} item2={item2} item={item} />
                                                 </td>
                                             </> : null
-                                        )) : null}
-                                        <td id='uuid2' style={{ textAlign: 'center' }}>
-                                            <button className='table-button c' style={{ color: '#fff' }} onClick={() => addSomeThing(item.id)}>
-                                                <i className='fa-solid fa-plus'></i>
-                                            </button>
-                                        </td>
+                                        ))}
                                     </tr>
                                 )) : ''}
                             </tbody>

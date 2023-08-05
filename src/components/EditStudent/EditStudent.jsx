@@ -29,7 +29,7 @@ export default function EditStudent({ id }) {
                 setUsername(res.data.username)
                 setPassword(res.data.password)
                 setPhone(`+${res.data.phone}`)
-                if (res.data.profession.length && res.data.teachers.length) {
+                if (res.data.profession.length || res.data.teachers.length) {
                     const filteredProfessions = res.data.profession.map(c => c.id)
                     const filteredTeachers = res.data.teachers.map(c => c.id)
 

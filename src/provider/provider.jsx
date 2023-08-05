@@ -54,6 +54,8 @@ export function reducer(state = initialState, { type, payload }) {
             return { ...state, studentProfile: payload }
         case "startLook":
             return { ...state, lookingRole: payload }
+        case "updateSome":
+            return {...state, users: {...state.users, students: payload}}
         case "upDataSomeThing":
             const [post, id] = payload
             const students = state.users.students.map(item => {
