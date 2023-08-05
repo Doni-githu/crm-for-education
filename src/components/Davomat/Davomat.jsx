@@ -138,7 +138,7 @@ function Davomat() {
     const month = new Date().toJSON().slice(5, 7)
     const completeDate = Date.parse(new Date(users.complete_date))
     const day = Date.parse(new Date(users.begin_date))
-    let count = Math.round(day / 1000 / 60 / 60 / 24) || 0
+    let count = 0
     const [list, setList] = useState([])
     const days = Math.round((completeDate - day) / 1000 / 60 / 60 / 24)
 
