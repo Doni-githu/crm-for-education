@@ -39,20 +39,18 @@ function Davomat() {
         const id = Number(params.id)
         Group.getOne(id)
             .then((res) => {
-                if (res.data.students.length !== 0) {
-                    let data2 = []
-                    for (let i = 0; i < res.data.students.length; i++) {
-                        const element = res.data.students[i];
-                        for (let j = 0; j < element.davomat.length; j++) {
-                            const element2 = element.davomat[j];
-                            if (element2.group === id) {
-                                data2.push(element2)
-                            }
+                let data2 = []
+                for (let i = 0; i < res.data.students.length; i++) {
+                    const element = res.data.students[i];
+                    for (let j = 0; j < element.davomat.length; j++) {
+                        const element2 = element.davomat[j];
+                        if (element2.group === id) {
+                            data2.push(element2)
                         }
                     }
-                    const data = { ...res.data, davomat: data2 }
-                    dispatch({ type: 'attendance', payload: data })
                 }
+                const data = { ...res.data, davomat: data2 }
+                dispatch({ type: 'attendance', payload: data })
             }).catch((err) => {
                 console.log(err)
             })
@@ -80,8 +78,8 @@ function Davomat() {
             console.log(error)
         }
     }
-    const toEdit = (e) => {
-        navigate(`/edit/group/${e}`)
+    const toEdit = () => {
+        navigate(`/edit/group/${users.id}`)
     }
     const toProfile = (id) => {
         Auth.getOne(id)
@@ -138,6 +136,7 @@ function Davomat() {
     let count = 0
     const [list, setList] = useState([])
     const days = Math.round((completeDate - day) / 1000 / 60 / 60 / 24)
+    const days3 = completeDate - day
 
     useEffect(() => {
         const newArray = new Array(attendanceData(month)).fill(0).map((item, i) => {
@@ -155,11 +154,39 @@ function Davomat() {
         setList(newArray)
     }, [])
     async function getNow() {
-        const now = new Date(users.begin_date).toJSON()
         for (let i = 0; i < users.students.length; i++) {
             const element = users.students[i];
-            let someArray = element.davomat.filter(c => c.group === users.id)
-            while (someArray?.length < day2) {
+            const data = {
+                keldi: 'u',
+                sana: now,
+                student: element.id,
+                group: users.id,
+            }
+            // const result = await DavomatReq.create(data)
+            // element.davomat.push(result.data)
+        }
+    }
+    const now = Date.parse(new Date())
+    const now2 = Date.parse(new Date().toJSON().split('T')[0])
+    if (completeDate !== now) {
+        if (day === now2) {
+            for (let i = 0; i < users.students.length; i++) {
+                const element = users.students[i];
+                const data = {
+                    keldi: 'u',
+                    sana: now,
+                    student: element.id,
+                    group: users.id,
+                }
+                DavomatReq.create(data)
+                    .then((res) => {
+                        element.davomat.push(res.data)
+                    })
+            }
+        }
+        setInterval(async () => {
+            for (let i = 0; i < users.students.length; i++) {
+                const element = users.students[i];
                 const data = {
                     keldi: 'u',
                     sana: now,
@@ -169,7 +196,7 @@ function Davomat() {
                 const result = await DavomatReq.create(data)
                 element.davomat.push(result.data)
             }
-        }
+        }, [86400])
     }
 
     if (users.students) {
@@ -186,7 +213,7 @@ function Davomat() {
                         <p className='title'>Group {users ? users.name : ''}</p>
                         {state.role === "AD" ? <>
                             <div className="btn">
-                                <button onClick={() => toEdit(users.id)}>
+                                <button onClick={() => toEdit()}>
                                     <div className="img">
                                         <i className='fa-solid fa-edit'></i>
                                     </div>
