@@ -153,19 +153,7 @@ function Davomat() {
         })
         setList(newArray)
     }, [])
-    async function getNow() {
-        for (let i = 0; i < users.students.length; i++) {
-            const element = users.students[i];
-            const data = {
-                keldi: 'u',
-                sana: now,
-                student: element.id,
-                group: users.id,
-            }
-            // const result = await DavomatReq.create(data)
-            // element.davomat.push(result.data)
-        }
-    }
+
     const now = Date.parse(new Date())
     const now2 = Date.parse(new Date().toJSON().split('T')[0])
     if (completeDate !== now) {
@@ -197,10 +185,6 @@ function Davomat() {
                 element.davomat.push(result.data)
             }
         }, [86400])
-    }
-
-    if (users.students) {
-        getNow()
     }
 
 
