@@ -156,7 +156,7 @@ function Davomat() {
 
     const now = Date.parse(new Date())
     const now2 = Date.parse(new Date().toJSON().split('T')[0])
-    if (completeDate !== now) {
+    if (completeDate > now) {
         if (day === now2) {
             for (let i = 0; i < users.students.length; i++) {
                 const element = users.students[i];
